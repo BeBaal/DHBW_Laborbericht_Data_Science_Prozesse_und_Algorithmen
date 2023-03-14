@@ -8,7 +8,7 @@ format:
         theme: default
         logo: /Bilder/DHBW_CAS_LOGO_Sonderform.jpg
         css: /css/logo.css
-        footer: "Bernd Baalmann und Moritz Vossel | DHBW CAS | Larborbericht Data Science"
+        footer: "Bernd Baalmann und Moritz Vossel | DHBW CAS | Laborbericht Data Science"
         toc: true
         number-sections: true
         scrollable: true
@@ -20,6 +20,7 @@ jupyter: python3
 ---
 
 ```{python}
+from IPython.display import display, Markdown
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -95,7 +96,7 @@ for n in range(len(df.columns)):
 What are the values like which are saved in the dataframe?
 
 ```{python}
-# | echo: true
+
 print(df.head(3))
 ```
 
@@ -137,7 +138,7 @@ print("Before drop there were " + str(len(df)) + " lines in the dataframe")
 ```{python}
 # | echo: true
 # comment
-df.dropna()
+print(df.dropna())
 ```
 
 ```{python}
@@ -182,6 +183,15 @@ plt.show()
 ```
 
 # End
+
+```{python}
+# | echo: false
+radius = 10
+display(Markdown("""
+The radius of the circle is {radius}.
+""".format(radius=radius)))
+```
+
 
 ## References
 

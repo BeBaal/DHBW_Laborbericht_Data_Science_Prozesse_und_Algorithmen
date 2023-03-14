@@ -384,9 +384,6 @@
       margin-right: 0; 
     }
   </style>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
-  <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 </head>
 <body class="quarto-light">
   <div class="reveal">
@@ -463,6 +460,7 @@
 <span id="cb1-2"><a href="#cb1-2"></a>                 sep<span class="op">=</span><span class="st">","</span>,</span>
 <span id="cb1-3"><a href="#cb1-3"></a>                 header<span class="op">=</span><span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>Then we take a look into the dimensions of the dataframe.</p>
 <p>Dataframe dimensions</p>
 <div class="cell" data-execution_count="3">
 <div class="cell-output cell-output-stdout">
@@ -496,7 +494,6 @@ referenceid</code></pre>
 <div id="tabset-1-3">
 <p>What are the values like which are saved in the dataframe?</p>
 <div class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a><span class="bu">print</span>(df.head(<span class="dv">3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   Unnamed: 0 country_key        ids   
 0           0          ML  878172701  \
@@ -527,7 +524,7 @@ referenceid</code></pre>
 </div>
 <div id="tabset-1-4">
 <div class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a><span class="bu">print</span>(df.describe())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a><span class="bu">print</span>(df.describe())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>        Unnamed: 0           ids
 count  6174.000000  6.174000e+03
@@ -564,212 +561,62 @@ max    6173.000000  9.123569e+08</code></pre>
 </div>
 </div>
 <div class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1"></a><span class="co"># comment</span></span>
-<span id="cb10-2"><a href="#cb10-2"></a>df.dropna()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1"></a><span class="co"># comment</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="bu">print</span>(df.dropna())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      Unnamed: 0 country_key        ids   
+0              0          ML  878172701  \
+1              1          ML  859517501   
+2              2          ML  878181801   
+3              3          ML  857544701   
+4              4          ML  857349901   
+...          ...         ...        ...   
+6169        6169          ML  881698101   
+6170        6170          ML  866584701   
+6171        6171          ML  859730701   
+6172        6172          ML  906913101   
+6173        6173          ML  880436701   
 
-<div>
-<style scoped="">
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
+                                                  title salaryvalue   
+0         Aushilfe Verkauf (m/w/d) (Krefeld, DE, 47803)              \
+1     Ausbildung Verkäufer (m/w/d) / Kaufmann im Ein...               
+2           Aushilfe Verkauf (m/w/d) (Moers, DE, 47447)               
+3     Ausbildung Verkäufer (m/w/d) / Kaufmann im Ein...               
+4     Ausbildung Verkäufer (m/w/d) / Kaufmann im Ein...               
+...                                                 ...         ...   
+6169  Ausbildung Verkäufer (m/w/d) / Kaufmann im Ein...               
+6170  Ausbildung Verkäufer (m/w/d) / Kaufmann im Ein...               
+6171  Ausbildung Verkäufer (m/w/d) / Kaufmann im Ein...               
+6172  Trainee stellvertretender Filialleiter (m/w/d)...               
+6173  Ausbildung Verkäufer (m/w/d) / Kaufmann im Ein...               
 
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
+                                     textresponsibility closing_date latitude   
+0      lt div class quot aldi externer stellentitel ...                        \
+1      lt div class quot aldi externer stellentitel ...                         
+2      lt div class quot aldi externer stellentitel ...                         
+3      lt div class quot aldi externer stellentitel ...                         
+4      lt div class quot aldi externer stellentitel ...                         
+...                                                 ...          ...      ...   
+6169   lt div class quot aldi externer stellentitel ...                         
+6170   lt div class quot aldi externer stellentitel ...                         
+6171   lt div class quot aldi externer stellentitel ...                         
+6172   lt div class quot aldi externer stellentitel ...                         
+6173   lt div class quot aldi externer stellentitel ...                         
 
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Unnamed: 0</th>
-      <th>country_key</th>
-      <th>ids</th>
-      <th>title</th>
-      <th>salaryvalue</th>
-      <th>textresponsibility</th>
-      <th>closing_date</th>
-      <th>latitude</th>
-      <th>contracttype</th>
-      <th>entrylevel</th>
-      <th>employmentarea</th>
-      <th>referenceid</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>0</td>
-      <td>ML</td>
-      <td>878172701</td>
-      <td>Aushilfe Verkauf (m/w/d) (Krefeld, DE, 47803)</td>
-      <td></td>
-      <td>lt div class quot aldi externer stellentitel ...</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td>Berufserfahrene</td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>1</td>
-      <td>ML</td>
-      <td>859517501</td>
-      <td>Ausbildung Verkäufer (m/w/d) / Kaufmann im Ein...</td>
-      <td></td>
-      <td>lt div class quot aldi externer stellentitel ...</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td>Schüler</td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>2</td>
-      <td>ML</td>
-      <td>878181801</td>
-      <td>Aushilfe Verkauf (m/w/d) (Moers, DE, 47447)</td>
-      <td></td>
-      <td>lt div class quot aldi externer stellentitel ...</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td>Berufserfahrene</td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>3</td>
-      <td>ML</td>
-      <td>857544701</td>
-      <td>Ausbildung Verkäufer (m/w/d) / Kaufmann im Ein...</td>
-      <td></td>
-      <td>lt div class quot aldi externer stellentitel ...</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td>Schüler</td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>4</td>
-      <td>ML</td>
-      <td>857349901</td>
-      <td>Ausbildung Verkäufer (m/w/d) / Kaufmann im Ein...</td>
-      <td></td>
-      <td>lt div class quot aldi externer stellentitel ...</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td>Schüler</td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th>6169</th>
-      <td>6169</td>
-      <td>ML</td>
-      <td>881698101</td>
-      <td>Ausbildung Verkäufer (m/w/d) / Kaufmann im Ein...</td>
-      <td></td>
-      <td>lt div class quot aldi externer stellentitel ...</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td>Schüler</td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <th>6170</th>
-      <td>6170</td>
-      <td>ML</td>
-      <td>866584701</td>
-      <td>Ausbildung Verkäufer (m/w/d) / Kaufmann im Ein...</td>
-      <td></td>
-      <td>lt div class quot aldi externer stellentitel ...</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td>Schüler</td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <th>6171</th>
-      <td>6171</td>
-      <td>ML</td>
-      <td>859730701</td>
-      <td>Ausbildung Verkäufer (m/w/d) / Kaufmann im Ein...</td>
-      <td></td>
-      <td>lt div class quot aldi externer stellentitel ...</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td>Schüler</td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <th>6172</th>
-      <td>6172</td>
-      <td>ML</td>
-      <td>906913101</td>
-      <td>Trainee stellvertretender Filialleiter (m/w/d)...</td>
-      <td></td>
-      <td>lt div class quot aldi externer stellentitel ...</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td>Berufserfahrene</td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <th>6173</th>
-      <td>6173</td>
-      <td>ML</td>
-      <td>880436701</td>
-      <td>Ausbildung Verkäufer (m/w/d) / Kaufmann im Ein...</td>
-      <td></td>
-      <td>lt div class quot aldi externer stellentitel ...</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td>Schüler</td>
-      <td></td>
-      <td></td>
-    </tr>
-  </tbody>
-</table>
-<p>6174 rows × 12 columns</p>
-</div>
+     contracttype       entrylevel employmentarea referenceid  
+0                  Berufserfahrene                             
+1                          Schüler                             
+2                  Berufserfahrene                             
+3                          Schüler                             
+4                          Schüler                             
+...           ...              ...            ...         ...  
+6169                       Schüler                             
+6170                       Schüler                             
+6171                       Schüler                             
+6172               Berufserfahrene                             
+6173                       Schüler                             
+
+[6174 rows x 12 columns]</code></pre>
 </div>
 </div>
 <div class="cell" data-execution_count="10">
@@ -851,7 +698,11 @@ max    6173.000000  9.123569e+08</code></pre>
 <section>
 <section id="end" class="title-slide slide level1 center" data-number="4">
 <h1><span class="header-section-number">4</span> End</h1>
-
+<div class="cell" data-execution_count="13">
+<div class="cell-output cell-output-display">
+<p>The radius of the circle is 10.</p>
+</div>
+</div>
 </section>
 <section id="references" class="slide level2" data-number="4.1">
 <h2><span class="header-section-number">4.1</span> References</h2>
@@ -861,7 +712,7 @@ max    6173.000000  9.123569e+08</code></pre>
 <h2><span class="header-section-number">4.2</span> Backup</h2>
 
 <img src="/Bilder/DHBW_CAS_LOGO_Sonderform.jpg" class="slide-logo r-stretch"><div class="footer footer-default">
-<p>Bernd Baalmann und Moritz Vossel | DHBW CAS | Larborbericht Data Science</p>
+<p>Bernd Baalmann und Moritz Vossel | DHBW CAS | Laborbericht Data Science</p>
 </div>
 </section></section>
     </div>
