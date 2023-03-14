@@ -66,7 +66,8 @@ df = pd.read_csv(r"Daten\Aldi_Süd.csv",
                  header=0)
 
 ```
-  
+
+Then we take a look into the dimensions of the dataframe.
   
 Dataframe dimensions
 ```{python}
