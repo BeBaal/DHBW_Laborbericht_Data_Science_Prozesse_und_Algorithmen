@@ -15,8 +15,14 @@ seaborn = "*"
 openpyxl = "*"
 scikit-learn = "*"
 ipykernel = "*"
+tensorflow = "*"
+keras = "*"
+numpy = "*"
+tqdm = "*"
+torch = "*"
 
 [dev-packages]
+torch-tb-profiler = "*"
 
 [requires]
-python_version = "*"
+python_version = "3.9"

@@ -384,6 +384,10 @@
       margin-right: 0; 
     }
   </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+  <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+  <script src="https://unpkg.com/@jupyter-widgets/html-manager@*/dist/embed-amd.js" crossorigin="anonymous"></script>
 </head>
 <body class="quarto-light">
   <div class="reveal">
@@ -400,20 +404,32 @@
 <nav role="doc-toc"> 
 <h2 id="toc-title">Table of contents</h2>
 <ul>
-<li><a href="#/introduction" id="/toc-introduction"><span class="toc-section-number">1</span>  Introduction</a>
+<li><a href="#/einleitung" id="/toc-einleitung"><span class="toc-section-number">1</span>  Einleitung</a>
 <ul>
-<li><a href="#/use-case" id="/toc-use-case"><span class="toc-section-number">1.1</span>  Use case</a></li>
-<li><a href="#/dataset" id="/toc-dataset"><span class="toc-section-number">1.2</span>  Dataset</a></li>
+<li><a href="#/was-ist-pytorch" id="/toc-was-ist-pytorch"><span class="toc-section-number">1.1</span>  Was ist PyTorch?</a></li>
+<li><a href="#/setup" id="/toc-setup"><span class="toc-section-number">1.2</span>  Setup</a></li>
 </ul></li>
-<li><a href="#/preprocessing" id="/toc-preprocessing"><span class="toc-section-number">2</span>  Preprocessing</a>
+<li><a href="#/arbeiten-mit-tensoren" id="/toc-arbeiten-mit-tensoren"><span class="toc-section-number">2</span>  Arbeiten mit Tensoren</a>
 <ul>
-<li><a href="#/data-preparation" id="/toc-data-preparation"><span class="toc-section-number">2.1</span>  Data preparation</a></li>
+<li><a href="#/erstellen-von-tensoren" id="/toc-erstellen-von-tensoren"><span class="toc-section-number">2.1</span>  Erstellen von Tensoren</a></li>
+<li><a href="#/rechnen-mit-tensoren" id="/toc-rechnen-mit-tensoren"><span class="toc-section-number">2.2</span>  Rechnen mit Tensoren</a></li>
+<li><a href="#/dynamic-computation-graph-and-backpropagation" id="/toc-dynamic-computation-graph-and-backpropagation"><span class="toc-section-number">2.3</span>  Dynamic Computation Graph and Backpropagation</a></li>
+<li><a href="#/laufzeit-gpu-vs.-cpu" id="/toc-laufzeit-gpu-vs.-cpu"><span class="toc-section-number">2.4</span>  Laufzeit GPU vs.&nbsp;CPU</a></li>
+<li><a href="#/erstellen-modellen-in-pytorch" id="/toc-erstellen-modellen-in-pytorch"><span class="toc-section-number">2.5</span>  Erstellen Modellen in Pytorch</a></li>
+<li><a href="#/generierung-von-datensätzen-in-pytorch" id="/toc-generierung-von-datensätzen-in-pytorch"><span class="toc-section-number">2.6</span>  Generierung von Datensätzen in PyTorch</a></li>
+<li><a href="#/laden-von-datensätzen-in-pytorch" id="/toc-laden-von-datensätzen-in-pytorch"><span class="toc-section-number">2.7</span>  Laden von Datensätzen in PyTorch</a></li>
 </ul></li>
-<li><a href="#/analysis" id="/toc-analysis"><span class="toc-section-number">3</span>  Analysis</a>
+<li><a href="#/optimierung" id="/toc-optimierung"><span class="toc-section-number">3</span>  Optimierung</a>
 <ul>
-<li><a href="#/header-3" id="/toc-header-3"><span class="toc-section-number">3.1</span>  Header 3</a></li>
+<li><a href="#/tab-2-7" id="/toc-tab-2-7"><span class="toc-section-number">3.0.1</span>  Tab 2</a></li>
+<li><a href="#/modellerstellung" id="/toc-modellerstellung"><span class="toc-section-number">3.1</span>  Modellerstellung</a>
+<ul>
+<li><a href="#/tab-2-8" id="/toc-tab-2-8"><span class="toc-section-number">3.1.1</span>  Tab 2</a></li>
+<li><a href="#/tab-3-4" id="/toc-tab-3-4"><span class="toc-section-number">3.1.2</span>  Tab 3</a></li>
+<li><a href="#/tab-4-2" id="/toc-tab-4-2"><span class="toc-section-number">3.1.3</span>  Tab 4</a></li>
 </ul></li>
-<li><a href="#/end" id="/toc-end"><span class="toc-section-number">4</span>  End</a>
+</ul></li>
+<li><a href="#/zusammenfassung" id="/toc-zusammenfassung"><span class="toc-section-number">4</span>  Zusammenfassung</a>
 <ul>
 <li><a href="#/references" id="/toc-references"><span class="toc-section-number">4.1</span>  References</a></li>
 <li><a href="#/backup" id="/toc-backup"><span class="toc-section-number">4.2</span>  Backup</a></li>
@@ -422,18 +438,586 @@
 </nav>
 </section>
 <section>
-<section id="introduction" class="title-slide slide level1 center" data-number="1">
-<h1><span class="header-section-number">1</span> Introduction</h1>
-<p>A short introduction into the use case and data</p>
+<section id="einleitung" class="title-slide slide level1 center" data-number="1">
+<h1><span class="header-section-number">1</span> Einleitung</h1>
+
 </section>
-<section id="use-case" class="slide level2" data-number="1.1">
-<h2><span class="header-section-number">1.1</span> Use case</h2>
-<p>Schwarz IT has upgraded to a new SAP businesswarehouse. Therefore it is of interest if the new businesswarehouse works efficiently and serves queries in an timely manner.</p>
-<p>Questions for analysis:</p>
-<ul>
-<li>Are there any hot spots of activity during the day?</li>
-<li>Are there queries which do not get executed at least five times per week?</li>
-</ul>
+<section id="was-ist-pytorch" class="slide level2" data-number="1.1">
+<h2><span class="header-section-number">1.1</span> Was ist PyTorch?</h2>
+<p>bla bla bla</p>
+<p>image von pytorch hinzufügen</p>
+</section>
+<section id="setup" class="slide level2" data-number="1.2">
+<h2><span class="header-section-number">1.2</span> Setup</h2>
+<div class="panel-tabset">
+<ul id="tabset-1" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-1-1">Tab 1</a></li><li><a href="#tabset-1-2">Tab 2</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1">
+<p>Welche Libraries werden für die Übung benötigt?</p>
+<div class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="co">## Standard libraries</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="im">import</span> os, math, time</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="im">import</span> numpy <span class="im">as</span> np </span>
+<span id="cb1-4"><a href="#cb1-4"></a></span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="co">## Imports for plotting</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="op">%</span>matplotlib inline </span>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="im">from</span> IPython.display <span class="im">import</span> set_matplotlib_formats</span>
+<span id="cb1-9"><a href="#cb1-9"></a>set_matplotlib_formats(<span class="st">'svg'</span>, <span class="st">'pdf'</span>) <span class="co"># For export</span></span>
+<span id="cb1-10"><a href="#cb1-10"></a><span class="im">from</span> matplotlib.colors <span class="im">import</span> to_rgba</span>
+<span id="cb1-11"><a href="#cb1-11"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb1-12"><a href="#cb1-12"></a>sns.<span class="bu">set</span>()</span>
+<span id="cb1-13"><a href="#cb1-13"></a></span>
+<span id="cb1-14"><a href="#cb1-14"></a><span class="co">## Progress bar</span></span>
+<span id="cb1-15"><a href="#cb1-15"></a><span class="im">from</span> tqdm.notebook <span class="im">import</span> tqdm</span>
+<span id="cb1-16"><a href="#cb1-16"></a></span>
+<span id="cb1-17"><a href="#cb1-17"></a><span class="co"># Torch import</span></span>
+<span id="cb1-18"><a href="#cb1-18"></a><span class="im">import</span> torch</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div id="tabset-1-2">
+<p>Setzen eines Seeds für die PyTorch Random Funktionen:</p>
+<div class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a>torch.manual_seed(<span class="dv">42</span>) <span class="co"># Setting the seed</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="189">
+<pre><code>&lt;torch._C.Generator at 0x1fabbe0acd0&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section></section>
+<section>
+<section id="arbeiten-mit-tensoren" class="title-slide slide level1 center" data-number="2">
+<h1><span class="header-section-number">2</span> Arbeiten mit Tensoren</h1>
+
+</section>
+<section id="erstellen-von-tensoren" class="slide level2" data-number="2.1">
+<h2><span class="header-section-number">2.1</span> Erstellen von Tensoren</h2>
+<div class="panel-tabset">
+<ul id="tabset-2" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-2-1">Tab 1</a></li><li><a href="#tabset-2-2">Tab 2</a></li><li><a href="#tabset-2-3">Tab 3</a></li></ul>
+<div class="tab-content">
+<div id="tabset-2-1">
+<p>Erstellen eines Tensors mit der Größe 2 x 3 x 4</p>
+<div class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a>x <span class="op">=</span> torch.Tensor(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>)</span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="bu">print</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>tensor([[[9.2755e-39, 1.0561e-38, 9.0000e-39, 1.0469e-38],
+         [9.1837e-39, 8.9082e-39, 1.0286e-38, 8.9082e-39],
+         [8.9082e-39, 9.9184e-39, 9.0919e-39, 9.9184e-39]],
+
+        [[1.0286e-38, 1.0194e-38, 1.0469e-38, 1.0010e-38],
+         [8.4490e-39, 1.1112e-38, 9.5511e-39, 1.0102e-38],
+         [1.0286e-38, 1.0653e-38, 1.0194e-38, 4.6838e-39]]])</code></pre>
+</div>
+</div>
+</div>
+<div id="tabset-2-2">
+<p>Erstellung von einem Tensor über eine nested List:</p>
+<div class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a>x <span class="op">=</span> torch.Tensor([[<span class="dv">1</span>, <span class="dv">2</span>], [<span class="dv">3</span>, <span class="dv">4</span>]])</span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="bu">print</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>tensor([[1., 2.],
+        [3., 4.]])</code></pre>
+</div>
+</div>
+</div>
+<div id="tabset-2-3">
+<p>Erstellung eines Tensors mit zufälligen Werten zwischen 0 und 1:</p>
+<div class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># Create a tensor with random values between 0 and 1 with the shape [2, 3, 4]</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a>x <span class="op">=</span> torch.rand(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>)</span>
+<span id="cb8-3"><a href="#cb8-3"></a><span class="bu">print</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>tensor([[[0.8823, 0.9150, 0.3829, 0.9593],
+         [0.3904, 0.6009, 0.2566, 0.7936],
+         [0.9408, 0.1332, 0.9346, 0.5936]],
+
+        [[0.8694, 0.5677, 0.7411, 0.4294],
+         [0.8854, 0.5739, 0.2666, 0.6274],
+         [0.2696, 0.4414, 0.2969, 0.8317]]])</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="rechnen-mit-tensoren" class="slide level2" data-number="2.2">
+<h2><span class="header-section-number">2.2</span> Rechnen mit Tensoren</h2>
+<div class="panel-tabset">
+<ul id="tabset-3" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-3-1">Tab 1</a></li><li><a href="#tabset-3-2">Tab 2</a></li><li><a href="#tabset-3-3">Tab 3</a></li><li><a href="#tabset-3-4">Tab 4</a></li></ul>
+<div class="tab-content">
+<div id="tabset-3-1">
+<p>Die meisten Operationen, die in numpy möglich sind, lassen sich auch in PyTorch ausführen. Anbei ein beispiel einer Matrix Addition.</p>
+<div class="cell columns column-output-location" data-execution_count="10">
+<div class="column">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1"></a>x1 <span class="op">=</span> torch.rand(<span class="dv">2</span>, <span class="dv">3</span>)</span>
+<span id="cb10-2"><a href="#cb10-2"></a>x2 <span class="op">=</span> torch.rand(<span class="dv">2</span>, <span class="dv">3</span>)</span>
+<span id="cb10-3"><a href="#cb10-3"></a>y <span class="op">=</span> x1 <span class="op">+</span> x2</span>
+<span id="cb10-4"><a href="#cb10-4"></a></span>
+<span id="cb10-5"><a href="#cb10-5"></a><span class="bu">print</span>(<span class="st">"X1"</span>, x1)</span>
+<span id="cb10-6"><a href="#cb10-6"></a><span class="bu">print</span>(<span class="st">"X2"</span>, x2)</span>
+<span id="cb10-7"><a href="#cb10-7"></a><span class="bu">print</span>(<span class="st">"Y"</span>, y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div><div class="column">
+<div class="cell-output cell-output-stdout">
+<pre><code>X1 tensor([[0.1053, 0.2695, 0.3588],
+        [0.1994, 0.5472, 0.0062]])
+X2 tensor([[0.9516, 0.0753, 0.8860],
+        [0.5832, 0.3376, 0.8090]])
+Y tensor([[1.0569, 0.3448, 1.2448],
+        [0.7826, 0.8848, 0.8151]])</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-3-2">
+<div class="cell columns column-output-location" data-execution_count="11">
+<div class="column">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1"></a>x1 <span class="op">=</span> torch.rand(<span class="dv">2</span>, <span class="dv">3</span>)</span>
+<span id="cb12-2"><a href="#cb12-2"></a>x2 <span class="op">=</span> torch.rand(<span class="dv">2</span>, <span class="dv">3</span>)</span>
+<span id="cb12-3"><a href="#cb12-3"></a><span class="bu">print</span>(<span class="st">"X1 (before)"</span>, x1)</span>
+<span id="cb12-4"><a href="#cb12-4"></a><span class="bu">print</span>(<span class="st">"X2 (before)"</span>, x2)</span>
+<span id="cb12-5"><a href="#cb12-5"></a> </span>
+<span id="cb12-6"><a href="#cb12-6"></a>x2.add_(x1)</span>
+<span id="cb12-7"><a href="#cb12-7"></a><span class="bu">print</span>(<span class="st">"X1 (after)"</span>, x1)</span>
+<span id="cb12-8"><a href="#cb12-8"></a><span class="bu">print</span>(<span class="st">"X2 (after)"</span>, x2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div><div class="column">
+<div class="cell-output cell-output-stdout">
+<pre><code>X1 (before) tensor([[0.5779, 0.9040, 0.5547],
+        [0.3423, 0.6343, 0.3644]])
+X2 (before) tensor([[0.7104, 0.9464, 0.7890],
+        [0.2814, 0.7886, 0.5895]])
+X1 (after) tensor([[0.5779, 0.9040, 0.5547],
+        [0.3423, 0.6343, 0.3644]])
+X2 (after) tensor([[1.2884, 1.8504, 1.3437],
+        [0.6237, 1.4230, 0.9539]])</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-3-3">
+<div class="cell columns column-output-location" data-execution_count="12">
+<div class="column">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1"></a>x <span class="op">=</span> torch.arange(<span class="dv">6</span>)</span>
+<span id="cb14-2"><a href="#cb14-2"></a><span class="bu">print</span>(<span class="st">"X"</span>, x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div><div class="column">
+<div class="cell-output cell-output-stdout">
+<pre><code>X tensor([0, 1, 2, 3, 4, 5])</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-3-4">
+<div class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1"></a>W <span class="op">=</span> torch.arange(<span class="dv">9</span>).view(<span class="dv">3</span>, <span class="dv">3</span>) <span class="co"># We can also stack multiple operations in a single line</span></span>
+<span id="cb16-2"><a href="#cb16-2"></a><span class="bu">print</span>(<span class="st">"W"</span>, W)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>W tensor([[0, 1, 2],
+        [3, 4, 5],
+        [6, 7, 8]])</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1"></a>h <span class="op">=</span> torch.matmul(x, W) <span class="co"># Verify the result by calculating it by hand too!</span></span>
+<span id="cb18-2"><a href="#cb18-2"></a><span class="bu">print</span>(<span class="st">"h"</span>, h)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>h </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>tensor([[15, 18, 21],
+        [42, 54, 66]])</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="dynamic-computation-graph-and-backpropagation" class="slide level2" data-number="2.3">
+<h2><span class="header-section-number">2.3</span> Dynamic Computation Graph and Backpropagation</h2>
+<div class="panel-tabset">
+<ul id="tabset-4" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-4-1">Tab 1</a></li><li><a href="#tabset-4-2">Tab 2</a></li></ul>
+<div class="tab-content">
+<div id="tabset-4-1">
+<p>In den Standardeinstellungen erfordern Tensoren keine Gradienten.</p>
+<div class="cell" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1"></a>x <span class="op">=</span> torch.ones((<span class="dv">3</span>,))</span>
+<span id="cb21-2"><a href="#cb21-2"></a><span class="bu">print</span>(x.requires_grad)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>False</code></pre>
+</div>
+</div>
+</div>
+<div id="tabset-4-2">
+<p>Das kann geändert werden indem man die Funktion requires_grad_ aufruft.</p>
+<div class="cell" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1"></a>x.requires_grad_(<span class="va">True</span>)</span>
+<span id="cb23-2"><a href="#cb23-2"></a><span class="bu">print</span>(x.requires_grad)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>True</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1"></a>x <span class="op">=</span> torch.arange(<span class="dv">3</span>, dtype<span class="op">=</span>torch.float32, requires_grad<span class="op">=</span><span class="va">True</span>) <span class="co"># Only float tensors can have gradients</span></span>
+<span id="cb25-2"><a href="#cb25-2"></a><span class="bu">print</span>(<span class="st">"X"</span>, x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>X tensor([0., 1., 2.], requires_grad=True)</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1"></a>a <span class="op">=</span> x <span class="op">+</span> <span class="dv">2</span></span>
+<span id="cb27-2"><a href="#cb27-2"></a>b <span class="op">=</span> a <span class="op">**</span> <span class="dv">2</span></span>
+<span id="cb27-3"><a href="#cb27-3"></a>c <span class="op">=</span> b <span class="op">+</span> <span class="dv">3</span></span>
+<span id="cb27-4"><a href="#cb27-4"></a>y <span class="op">=</span> c.mean()</span>
+<span id="cb27-5"><a href="#cb27-5"></a><span class="bu">print</span>(<span class="st">"Y"</span>, y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Y tensor(12.6667, grad_fn=&lt;MeanBackward0&gt;)</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="23">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1"></a>y.backward()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="24">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1"></a><span class="bu">print</span>(x.grad)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>tensor([1.3333, 2.0000, 2.6667])</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="25">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1"></a>gpu_avail <span class="op">=</span> torch.cuda.is_available()</span>
+<span id="cb32-2"><a href="#cb32-2"></a><span class="bu">print</span>(<span class="ss">f"Is the GPU available? </span><span class="sc">{</span>gpu_avail<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Is the GPU available? False</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="26">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1"></a>device <span class="op">=</span> torch.device(<span class="st">"cuda"</span>) <span class="cf">if</span> torch.cuda.is_available() <span class="cf">else</span> torch.device(<span class="st">"cpu"</span>)</span>
+<span id="cb34-2"><a href="#cb34-2"></a><span class="bu">print</span>(<span class="st">"Device"</span>, device)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Device cpu</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="27">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1"></a>x <span class="op">=</span> torch.zeros(<span class="dv">2</span>, <span class="dv">3</span>)</span>
+<span id="cb36-2"><a href="#cb36-2"></a>x <span class="op">=</span> x.to(device)</span>
+<span id="cb36-3"><a href="#cb36-3"></a><span class="bu">print</span>(<span class="st">"X"</span>, x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>X tensor([[0., 0., 0.],
+        [0., 0., 0.]])</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="laufzeit-gpu-vs.-cpu" class="slide level2" data-number="2.4">
+<h2><span class="header-section-number">2.4</span> Laufzeit GPU vs.&nbsp;CPU</h2>
+
+<img data-src="/Bilder/comparison_CPU_GPU.png" class="r-stretch quarto-figure-center"><p class="caption">Tabelle: CPU vs.&nbsp;GPU. Quelle: Caulfield 2009</p><div class="cell" data-execution_count="28">
+<div class="cell-output cell-output-stdout">
+<pre><code>CPU time: 1.52236s</code></pre>
+</div>
+</div>
+<p>Ausführungszeiten im Vergleich <br> CPU time: 0.20694s <br> GPU time: 0.00985s</p>
+<div class="cell" data-execution_count="29">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1"></a><span class="co"># GPU operations have a separate seed we also want to set</span></span>
+<span id="cb39-2"><a href="#cb39-2"></a><span class="cf">if</span> torch.cuda.is_available(): </span>
+<span id="cb39-3"><a href="#cb39-3"></a>    torch.cuda.manual_seed(<span class="dv">42</span>)</span>
+<span id="cb39-4"><a href="#cb39-4"></a>    torch.cuda.manual_seed_all(<span class="dv">42</span>)</span>
+<span id="cb39-5"><a href="#cb39-5"></a>    </span>
+<span id="cb39-6"><a href="#cb39-6"></a><span class="co"># Additionally, some operations on a GPU are implemented stochastic for efficiency</span></span>
+<span id="cb39-7"><a href="#cb39-7"></a><span class="co"># We want to ensure that all operations are deterministic on GPU (if used) for reproducibility</span></span>
+<span id="cb39-8"><a href="#cb39-8"></a>torch.backends.cudnn.deterministic <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb39-9"><a href="#cb39-9"></a>torch.backends.cudnn.benchmark <span class="op">=</span> <span class="va">False</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="erstellen-modellen-in-pytorch" class="slide level2" data-number="2.5">
+<h2><span class="header-section-number">2.5</span> Erstellen Modellen in Pytorch</h2>
+<div class="panel-tabset">
+<ul id="tabset-5" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-5-1">Tab 1</a></li><li><a href="#tabset-5-2">Tab 2</a></li><li><a href="#tabset-5-3">Tab 3</a></li></ul>
+<div class="tab-content">
+<div id="tabset-5-1">
+<p>Unser Anwendungsbeispiel <img data-src="/Bilder/small_neural_network.png" alt="Abbildung: Small Neural Network. Quelle: Lippe 2022"></p>
+</div>
+<div id="tabset-5-2">
+<div class="cell" data-execution_count="31">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1"></a><span class="kw">class</span> MyModule(nn.Module):</span>
+<span id="cb40-2"><a href="#cb40-2"></a>    </span>
+<span id="cb40-3"><a href="#cb40-3"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>):</span>
+<span id="cb40-4"><a href="#cb40-4"></a>        <span class="bu">super</span>().<span class="fu">__init__</span>()</span>
+<span id="cb40-5"><a href="#cb40-5"></a>        <span class="co"># Some init for my module</span></span>
+<span id="cb40-6"><a href="#cb40-6"></a>        </span>
+<span id="cb40-7"><a href="#cb40-7"></a>    <span class="kw">def</span> forward(<span class="va">self</span>, x):</span>
+<span id="cb40-8"><a href="#cb40-8"></a>        <span class="co"># Function for performing the calculation of the module.</span></span>
+<span id="cb40-9"><a href="#cb40-9"></a>        <span class="cf">pass</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div id="tabset-5-3">
+<div class="cell" data-execution_count="32">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1"></a><span class="kw">class</span> SimpleClassifier(nn.Module):</span>
+<span id="cb41-2"><a href="#cb41-2"></a></span>
+<span id="cb41-3"><a href="#cb41-3"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, num_inputs, num_hidden, num_outputs):</span>
+<span id="cb41-4"><a href="#cb41-4"></a>        <span class="bu">super</span>().<span class="fu">__init__</span>()</span>
+<span id="cb41-5"><a href="#cb41-5"></a>        <span class="co"># Initialize the modules we need to build the network</span></span>
+<span id="cb41-6"><a href="#cb41-6"></a>        <span class="va">self</span>.linear1 <span class="op">=</span> nn.Linear(num_inputs, num_hidden)</span>
+<span id="cb41-7"><a href="#cb41-7"></a>        <span class="va">self</span>.act_fn <span class="op">=</span> nn.Tanh()</span>
+<span id="cb41-8"><a href="#cb41-8"></a>        <span class="va">self</span>.linear2 <span class="op">=</span> nn.Linear(num_hidden, num_outputs)</span>
+<span id="cb41-9"><a href="#cb41-9"></a></span>
+<span id="cb41-10"><a href="#cb41-10"></a>    <span class="kw">def</span> forward(<span class="va">self</span>, x):</span>
+<span id="cb41-11"><a href="#cb41-11"></a>        <span class="co"># Perform the calculation of the model to determine the prediction</span></span>
+<span id="cb41-12"><a href="#cb41-12"></a>        x <span class="op">=</span> <span class="va">self</span>.linear1(x)</span>
+<span id="cb41-13"><a href="#cb41-13"></a>        x <span class="op">=</span> <span class="va">self</span>.act_fn(x)</span>
+<span id="cb41-14"><a href="#cb41-14"></a>        x <span class="op">=</span> <span class="va">self</span>.linear2(x)</span>
+<span id="cb41-15"><a href="#cb41-15"></a>        <span class="cf">return</span> x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="34">
+<div class="cell-output cell-output-stdout">
+<pre><code>Parameter linear1.weight, shape torch.Size([4, 2])
+Parameter linear1.bias, shape torch.Size([4])
+Parameter linear2.weight, shape torch.Size([1, 4])
+Parameter linear2.bias, shape torch.Size([1])</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="generierung-von-datensätzen-in-pytorch" class="slide level2" data-number="2.6">
+<h2><span class="header-section-number">2.6</span> Generierung von Datensätzen in PyTorch</h2>
+<div class="panel-tabset">
+<ul id="tabset-6" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-6-1">Tab 1</a></li><li><a href="#tabset-6-2">Tab 2</a></li><li><a href="#tabset-6-3">Tab 3</a></li><li><a href="#tabset-6-4">Tab 4</a></li></ul>
+<div class="tab-content">
+<div id="tabset-6-1">
+<p>In PyTorch lassen sich eigene Datensätze generieren.</p>
+</div>
+<div id="tabset-6-2">
+<div class="cell" data-execution_count="36">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1"></a><span class="kw">class</span> XORDataset(data.Dataset):</span>
+<span id="cb43-2"><a href="#cb43-2"></a></span>
+<span id="cb43-3"><a href="#cb43-3"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, size, std<span class="op">=</span><span class="fl">0.1</span>):</span>
+<span id="cb43-4"><a href="#cb43-4"></a>        <span class="co">"""</span></span>
+<span id="cb43-5"><a href="#cb43-5"></a><span class="co">        Inputs:</span></span>
+<span id="cb43-6"><a href="#cb43-6"></a><span class="co">            size - Number of data points we want to generate</span></span>
+<span id="cb43-7"><a href="#cb43-7"></a><span class="co">            std - Standard deviation of the noise (see generate_continuous_xor function)</span></span>
+<span id="cb43-8"><a href="#cb43-8"></a><span class="co">        """</span></span>
+<span id="cb43-9"><a href="#cb43-9"></a>        <span class="bu">super</span>().<span class="fu">__init__</span>()</span>
+<span id="cb43-10"><a href="#cb43-10"></a>        <span class="va">self</span>.size <span class="op">=</span> size</span>
+<span id="cb43-11"><a href="#cb43-11"></a>        <span class="va">self</span>.std <span class="op">=</span> std</span>
+<span id="cb43-12"><a href="#cb43-12"></a>        <span class="va">self</span>.generate_continuous_xor()</span>
+<span id="cb43-13"><a href="#cb43-13"></a></span>
+<span id="cb43-14"><a href="#cb43-14"></a>    <span class="kw">def</span> generate_continuous_xor(<span class="va">self</span>):</span>
+<span id="cb43-15"><a href="#cb43-15"></a>        <span class="co"># Each data point in the XOR dataset has two variables, x and y, that can be either 0 or 1</span></span>
+<span id="cb43-16"><a href="#cb43-16"></a>        <span class="co"># The label is their XOR combination, i.e. 1 if only x or only y is 1 while the other is 0.</span></span>
+<span id="cb43-17"><a href="#cb43-17"></a>        <span class="co"># If x=y, the label is 0.</span></span>
+<span id="cb43-18"><a href="#cb43-18"></a>        data <span class="op">=</span> torch.randint(low<span class="op">=</span><span class="dv">0</span>, high<span class="op">=</span><span class="dv">2</span>, size<span class="op">=</span>(<span class="va">self</span>.size, <span class="dv">2</span>), dtype<span class="op">=</span>torch.float32)</span>
+<span id="cb43-19"><a href="#cb43-19"></a>        label <span class="op">=</span> (data.<span class="bu">sum</span>(dim<span class="op">=</span><span class="dv">1</span>) <span class="op">==</span> <span class="dv">1</span>).to(torch.<span class="bu">long</span>)</span>
+<span id="cb43-20"><a href="#cb43-20"></a>        <span class="co"># To make it slightly more challenging, we add a bit of gaussian noise to the data points.</span></span>
+<span id="cb43-21"><a href="#cb43-21"></a>        data <span class="op">+=</span> <span class="va">self</span>.std <span class="op">*</span> torch.randn(data.shape)</span>
+<span id="cb43-22"><a href="#cb43-22"></a></span>
+<span id="cb43-23"><a href="#cb43-23"></a>        <span class="va">self</span>.data <span class="op">=</span> data</span>
+<span id="cb43-24"><a href="#cb43-24"></a>        <span class="va">self</span>.label <span class="op">=</span> label</span>
+<span id="cb43-25"><a href="#cb43-25"></a></span>
+<span id="cb43-26"><a href="#cb43-26"></a>    <span class="kw">def</span> <span class="fu">__len__</span>(<span class="va">self</span>):</span>
+<span id="cb43-27"><a href="#cb43-27"></a>        <span class="co"># Number of data point we have. Alternatively self.data.shape[0], or self.label.shape[0]</span></span>
+<span id="cb43-28"><a href="#cb43-28"></a>        <span class="cf">return</span> <span class="va">self</span>.size</span>
+<span id="cb43-29"><a href="#cb43-29"></a></span>
+<span id="cb43-30"><a href="#cb43-30"></a>    <span class="kw">def</span> <span class="fu">__getitem__</span>(<span class="va">self</span>, idx):</span>
+<span id="cb43-31"><a href="#cb43-31"></a>        <span class="co"># Return the idx-th data point of the dataset</span></span>
+<span id="cb43-32"><a href="#cb43-32"></a>        <span class="co"># If we have multiple things to return (data point and label), we can return them as tuple</span></span>
+<span id="cb43-33"><a href="#cb43-33"></a>        data_point <span class="op">=</span> <span class="va">self</span>.data[idx]</span>
+<span id="cb43-34"><a href="#cb43-34"></a>        data_label <span class="op">=</span> <span class="va">self</span>.label[idx]</span>
+<span id="cb43-35"><a href="#cb43-35"></a>        <span class="cf">return</span> data_point, data_label</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div id="tabset-6-3">
+<div class="cell" data-execution_count="37">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1"></a>dataset <span class="op">=</span> XORDataset(size<span class="op">=</span><span class="dv">200</span>)</span>
+<span id="cb44-2"><a href="#cb44-2"></a><span class="bu">print</span>(<span class="st">"Size of dataset:"</span>, <span class="bu">len</span>(dataset))</span>
+<span id="cb44-3"><a href="#cb44-3"></a><span class="bu">print</span>(<span class="st">"Data point 0:"</span>, dataset[<span class="dv">0</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Size of dataset: 200
+Data point 0: (tensor([0.9632, 0.1117]), tensor(1))</code></pre>
+</div>
+</div>
+</div>
+<div id="tabset-6-4">
+<div class="cell columns column-output-location" data-execution_count="39">
+<div class="column">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1"></a>visualize_samples(dataset.data, dataset.label)</span>
+<span id="cb46-2"><a href="#cb46-2"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div><div class="column">
+<div class="cell-output cell-output-display">
+<p><img data-src="Folien_files/figure-revealjs/cell-40-output-1.svg"></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="laden-von-datensätzen-in-pytorch" class="slide level2" data-number="2.7">
+<h2><span class="header-section-number">2.7</span> Laden von Datensätzen in PyTorch</h2>
+<div class="panel-tabset">
+<ul id="tabset-7" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-7-1">Tab 1</a></li><li><a href="#tabset-7-2">Tab 2</a></li></ul>
+<div class="tab-content">
+<div id="tabset-7-1">
+<p>Bei großen Datensätzen kann es vorteilhaft sein den Datensatz in Batches zu laden. Dies ermöglicht PyTorch durch Multiprocessing.</p>
+<div class="cell" data-execution_count="40">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1"></a>data_loader <span class="op">=</span> data.DataLoader(dataset, batch_size<span class="op">=</span><span class="dv">8</span>, shuffle<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div id="tabset-7-2">
+<div class="cell" data-execution_count="41">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1"></a><span class="co"># next(iter(...)) catches the first batch of the data loader</span></span>
+<span id="cb48-2"><a href="#cb48-2"></a><span class="co"># If shuffle is True, this will return a different batch every time we run this cell</span></span>
+<span id="cb48-3"><a href="#cb48-3"></a><span class="co"># For iterating over the whole dataset, we can simple use "for batch in data_loader: ..."</span></span>
+<span id="cb48-4"><a href="#cb48-4"></a>data_inputs, data_labels <span class="op">=</span> <span class="bu">next</span>(<span class="bu">iter</span>(data_loader))</span>
+<span id="cb48-5"><a href="#cb48-5"></a></span>
+<span id="cb48-6"><a href="#cb48-6"></a><span class="co"># The shape of the outputs are [batch_size, d_1,...,d_N] where d_1,...,d_N are the </span></span>
+<span id="cb48-7"><a href="#cb48-7"></a><span class="co"># dimensions of the data point returned from the dataset class</span></span>
+<span id="cb48-8"><a href="#cb48-8"></a><span class="co"># print("Data inputs", data_inputs.shape, "\n", data_inputs)</span></span>
+<span id="cb48-9"><a href="#cb48-9"></a><span class="co"># print("Data labels", data_labels.shape, "\n", data_labels)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+</section></section>
+<section>
+<section id="optimierung" class="title-slide slide level1 center" data-number="3">
+<h1><span class="header-section-number">3</span> Optimierung</h1>
+<p>::: {.panel-tabset} ### Tab 1 Erstellung eines Loss Models.</p>
+<div class="cell" data-execution_count="42">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1"></a>loss_module <span class="op">=</span> nn.BCEWithLogitsLoss()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<h3 data-number="3.0.1" id="tab-2-7"><span class="header-section-number">3.0.1</span> Tab 2</h3>
+<p>Erstellen eines Gradienten Verfahrens</p>
+<div class="cell" data-execution_count="43">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1"></a><span class="co"># Input to the optimizer are the parameters of the model: model.parameters()</span></span>
+<span id="cb50-2"><a href="#cb50-2"></a>optimizer <span class="op">=</span> torch.optim.SGD(model.parameters(), lr<span class="op">=</span><span class="fl">0.1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="modellerstellung" class="slide level2" data-number="3.1">
+<h2><span class="header-section-number">3.1</span> Modellerstellung</h2>
+<p>::: {.panel-tabset} ### Tab 1 Training eines Modells mit den zuvor erstellten Parametern</p>
+<div class="cell" data-execution_count="44">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1"></a>train_dataset <span class="op">=</span> XORDataset(size<span class="op">=</span><span class="dv">2500</span>)</span>
+<span id="cb51-2"><a href="#cb51-2"></a>train_data_loader <span class="op">=</span> data.DataLoader(train_dataset, batch_size<span class="op">=</span><span class="dv">128</span>, shuffle<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<h3 data-number="3.1.1" id="tab-2-8"><span class="header-section-number">3.1.1</span> Tab 2</h3>
+<div class="cell" data-execution_count="45">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1"></a><span class="co"># Push model to device. Has to be only done once</span></span>
+<span id="cb52-2"><a href="#cb52-2"></a>model.to(device)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="231">
+<pre><code>SimpleClassifier(
+  (linear1): Linear(in_features=2, out_features=4, bias=True)
+  (act_fn): Tanh()
+  (linear2): Linear(in_features=4, out_features=1, bias=True)
+)</code></pre>
+</div>
+</div>
+<h3 data-number="3.1.2" id="tab-3-4"><span class="header-section-number">3.1.2</span> Tab 3</h3>
+<div class="cell" data-execution_count="46">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1"></a><span class="kw">def</span> train_model(model, optimizer, data_loader, loss_module, num_epochs<span class="op">=</span><span class="dv">100</span>):</span>
+<span id="cb54-2"><a href="#cb54-2"></a>    <span class="co"># Set model to train mode</span></span>
+<span id="cb54-3"><a href="#cb54-3"></a>    model.train() </span>
+<span id="cb54-4"><a href="#cb54-4"></a>    </span>
+<span id="cb54-5"><a href="#cb54-5"></a>    <span class="co"># Training loop</span></span>
+<span id="cb54-6"><a href="#cb54-6"></a>    <span class="cf">for</span> epoch <span class="kw">in</span> tqdm(<span class="bu">range</span>(num_epochs)):</span>
+<span id="cb54-7"><a href="#cb54-7"></a>        <span class="cf">for</span> data_inputs, data_labels <span class="kw">in</span> data_loader:</span>
+<span id="cb54-8"><a href="#cb54-8"></a>            </span>
+<span id="cb54-9"><a href="#cb54-9"></a>            <span class="co">## Step 1: Move input data to device (only strictly necessary if we use GPU)</span></span>
+<span id="cb54-10"><a href="#cb54-10"></a>            data_inputs <span class="op">=</span> data_inputs.to(device)</span>
+<span id="cb54-11"><a href="#cb54-11"></a>            data_labels <span class="op">=</span> data_labels.to(device)</span>
+<span id="cb54-12"><a href="#cb54-12"></a>            </span>
+<span id="cb54-13"><a href="#cb54-13"></a>            <span class="co">## Step 2: Run the model on the input data</span></span>
+<span id="cb54-14"><a href="#cb54-14"></a>            preds <span class="op">=</span> model(data_inputs)</span>
+<span id="cb54-15"><a href="#cb54-15"></a>            preds <span class="op">=</span> preds.squeeze(dim<span class="op">=</span><span class="dv">1</span>) <span class="co"># Output is [Batch size, 1], but we want [Batch size]</span></span>
+<span id="cb54-16"><a href="#cb54-16"></a>            </span>
+<span id="cb54-17"><a href="#cb54-17"></a>            <span class="co">## Step 3: Calculate the loss</span></span>
+<span id="cb54-18"><a href="#cb54-18"></a>            loss <span class="op">=</span> loss_module(preds, data_labels.<span class="bu">float</span>())</span>
+<span id="cb54-19"><a href="#cb54-19"></a>            </span>
+<span id="cb54-20"><a href="#cb54-20"></a>            <span class="co">## Step 4: Perform backpropagation</span></span>
+<span id="cb54-21"><a href="#cb54-21"></a>            <span class="co"># Before calculating the gradients, we need to ensure that they are all zero. </span></span>
+<span id="cb54-22"><a href="#cb54-22"></a>            <span class="co"># The gradients would not be overwritten, but actually added to the existing ones.</span></span>
+<span id="cb54-23"><a href="#cb54-23"></a>            optimizer.zero_grad() </span>
+<span id="cb54-24"><a href="#cb54-24"></a>            <span class="co"># Perform backpropagation</span></span>
+<span id="cb54-25"><a href="#cb54-25"></a>            loss.backward()</span>
+<span id="cb54-26"><a href="#cb54-26"></a>            </span>
+<span id="cb54-27"><a href="#cb54-27"></a>            <span class="co">## Step 5: Update the parameters</span></span>
+<span id="cb54-28"><a href="#cb54-28"></a>            optimizer.step()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<h3 data-number="3.1.3" id="tab-4-2"><span class="header-section-number">3.1.3</span> Tab 4</h3>
+<p>Training des Modells</p>
+<div class="cell" data-execution_count="47">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1"></a>train_model(model, optimizer, train_data_loader, loss_module)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id":"e437230c32f1496dbe9daca41f4cabe1","version_major":2,"version_minor":0}
+</script>
+</div>
+</div>
+<p>tab 3 Speichern des Modells</p>
+<div class="cell" data-execution_count="48">
+<div class="cell-output cell-output-stdout">
+<pre><code>OrderedDict([('linear1.weight', tensor([[-2.6034, -3.3292],
+        [ 1.9774, -2.4076],
+        [-2.5968, -1.5908],
+        [-0.5717, -0.8101]])), ('linear1.bias', tensor([ 1.4459, -1.3992,  2.9882, -0.1375])), ('linear2.weight', tensor([[-4.4623,  3.0885,  4.4030, -0.1377]])), ('linear2.bias', tensor([-1.6853]))])</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="50">
+<div class="cell-output cell-output-display" data-execution_count="236">
+<pre><code>&lt;All keys matched successfully&gt;</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="51">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1"></a>test_dataset <span class="op">=</span> XORDataset(size<span class="op">=</span><span class="dv">500</span>)</span>
+<span id="cb58-2"><a href="#cb58-2"></a><span class="co"># drop_last -&gt; Don't drop the last batch although it is smaller than 128</span></span>
+<span id="cb58-3"><a href="#cb58-3"></a>test_data_loader <span class="op">=</span> data.DataLoader(test_dataset, batch_size<span class="op">=</span><span class="dv">128</span>, shuffle<span class="op">=</span><span class="va">False</span>, drop_last<span class="op">=</span><span class="va">False</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="53">
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb59-1"><a href="#cb59-1"></a>eval_model(model, test_data_loader)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Accuracy of the model: 100.00%</code></pre>
+</div>
+</div>
+
+<img data-src="Folien_files/figure-revealjs/cell-55-output-1.svg" class="r-stretch"><div class="cell" data-execution_count="55">
+<div class="cell-output cell-output-stdout">
+<pre><code>The tensorboard extension is already loaded. To reload it, use:
+  %reload_ext tensorboard</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="57">
+<div class="cell-output cell-output-display">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id":"0e203cb486b2424084f64d5aedf085a4","version_major":2,"version_minor":0}
+</script>
+</div>
+</div>
+<div class="cell" data-execution_count="58">
+<div class="cell-output cell-output-display">
+<pre><code>Reusing TensorBoard on port 6006 (pid 28948), started 2:06:54 ago. (Use '!kill 28948' to kill it.)</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+
+      <iframe id="tensorboard-frame-4df9a5a051db0c6c" width="100%" height="800" frameborder="0">
+      </iframe>
+      <script>
+        (function() {
+          const frame = document.getElementById("tensorboard-frame-4df9a5a051db0c6c");
+          const url = new URL("/", window.location);
+          const port = 6006;
+          if (port) {
+            url.port = port;
+          }
+          frame.src = url;
+        })();
+      </script>
+    
+</div>
+</div>
 <aside class="notes">
 <p>Speaker notes go here.</p>
 <style type="text/css">
@@ -447,262 +1031,11 @@
           overflow: hidden!important;
           display:block!important;
       }</style></aside>
-</section>
-<section id="dataset" class="slide level2" data-number="1.2">
-<h2><span class="header-section-number">1.2</span> Dataset</h2>
-<div class="panel-tabset">
-<ul id="tabset-1" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-1-1">Tab 1</a></li><li><a href="#tabset-1-2">Tab 2</a></li><li><a href="#tabset-1-3">Tab 3</a></li><li><a href="#tabset-1-4">Tab 4</a></li></ul>
-<div class="tab-content">
-<div id="tabset-1-1">
-<p>First we load the dataset into a pandas dataframe.</p>
-<div class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a>df <span class="op">=</span> pd.read_csv(<span class="vs">r"Daten\Aldi_Süd.csv"</span>,</span>
-<span id="cb1-2"><a href="#cb1-2"></a>                 sep<span class="op">=</span><span class="st">","</span>,</span>
-<span id="cb1-3"><a href="#cb1-3"></a>                 header<span class="op">=</span><span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Then we take a look into the dimensions of the dataframe.</p>
-<p>Dataframe dimensions</p>
-<div class="cell" data-execution_count="3">
-<div class="cell-output cell-output-stdout">
-<pre><code>Number of columns: 12
-Number of rows: 12</code></pre>
-</div>
-</div>
-</div>
-<div id="tabset-1-2">
-<p>Let us take a look into the different features which are available in the dataset.</p>
-<p>Column names:</p>
-<div class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="cf">for</span> n <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(df.columns)):</span>
-<span id="cb3-2"><a href="#cb3-2"></a>    <span class="bu">print</span>(df.columns[n])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Unnamed: 0
-country_key
-ids
-title
-salaryvalue
-textresponsibility
-closing_date
-latitude
-contracttype
-entrylevel
-employmentarea
-referenceid</code></pre>
-</div>
-</div>
-</div>
-<div id="tabset-1-3">
-<p>What are the values like which are saved in the dataframe?</p>
-<div class="cell" data-execution_count="5">
-<div class="cell-output cell-output-stdout">
-<pre><code>   Unnamed: 0 country_key        ids   
-0           0          ML  878172701  \
-1           1          ML  859517501   
-2           2          ML  878181801   
-
-                                               title salaryvalue   
-0      Aushilfe Verkauf (m/w/d) (Krefeld, DE, 47803)              \
-1  Ausbildung Verkäufer (m/w/d) / Kaufmann im Ein...               
-2        Aushilfe Verkauf (m/w/d) (Moers, DE, 47447)               
-
-                                  textresponsibility closing_date latitude   
-0   lt div class quot aldi externer stellentitel ...                        \
-1   lt div class quot aldi externer stellentitel ...                         
-2   lt div class quot aldi externer stellentitel ...                         
-
-  contracttype       entrylevel employmentarea referenceid  
-0               Berufserfahrene                             
-1                       Schüler                             
-2               Berufserfahrene                             </code></pre>
-</div>
-</div>
-<ul>
-<li>Some NaN values in InfoArea</li>
-<li>Repeating information in Infoprovider, Merkmalname and created at</li>
-<li>information in system time and user time</li>
-</ul>
-</div>
-<div id="tabset-1-4">
-<div class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a><span class="bu">print</span>(df.describe())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>        Unnamed: 0           ids
-count  6174.000000  6.174000e+03
-mean   3086.500000  8.809946e+08
-std    1782.424613  2.002792e+07
-min       0.000000  6.303159e+08
-25%    1543.250000  8.657053e+08
-50%    3086.500000  8.827436e+08
-75%    4629.750000  8.964140e+08
-max    6173.000000  9.123569e+08</code></pre>
-</div>
-</div>
-</div>
-</div>
-</div>
 </section></section>
 <section>
-<section id="preprocessing" class="title-slide slide level1 center" data-number="2">
-<h1><span class="header-section-number">2</span> Preprocessing</h1>
+<section id="zusammenfassung" class="title-slide slide level1 center" data-number="4">
+<h1><span class="header-section-number">4</span> Zusammenfassung</h1>
 
-</section>
-<section id="data-preparation" class="slide level2" data-number="2.1">
-<h2><span class="header-section-number">2.1</span> Data preparation</h2>
-<div class="panel-tabset">
-<ul id="tabset-2" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-2-1">Tab 1</a></li><li><a href="#tabset-2-2">Tab 1</a></li><li><a href="#tabset-2-3">Tab 2</a></li></ul>
-<div class="tab-content">
-<div id="tabset-2-1">
-<p>We will drop the usertime for further analysis. The users are international and we want to have a single frame of reference for our analysis.</p>
-</div>
-<div id="tabset-2-2">
-<div class="cell" data-execution_count="8">
-<div class="cell-output cell-output-stdout">
-<pre><code>Before drop there were 6174 lines in the dataframe</code></pre>
-</div>
-</div>
-<div class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1"></a><span class="co"># comment</span></span>
-<span id="cb9-2"><a href="#cb9-2"></a><span class="bu">print</span>(df.dropna())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>      Unnamed: 0 country_key        ids   
-0              0          ML  878172701  \
-1              1          ML  859517501   
-2              2          ML  878181801   
-3              3          ML  857544701   
-4              4          ML  857349901   
-...          ...         ...        ...   
-6169        6169          ML  881698101   
-6170        6170          ML  866584701   
-6171        6171          ML  859730701   
-6172        6172          ML  906913101   
-6173        6173          ML  880436701   
-
-                                                  title salaryvalue   
-0         Aushilfe Verkauf (m/w/d) (Krefeld, DE, 47803)              \
-1     Ausbildung Verkäufer (m/w/d) / Kaufmann im Ein...               
-2           Aushilfe Verkauf (m/w/d) (Moers, DE, 47447)               
-3     Ausbildung Verkäufer (m/w/d) / Kaufmann im Ein...               
-4     Ausbildung Verkäufer (m/w/d) / Kaufmann im Ein...               
-...                                                 ...         ...   
-6169  Ausbildung Verkäufer (m/w/d) / Kaufmann im Ein...               
-6170  Ausbildung Verkäufer (m/w/d) / Kaufmann im Ein...               
-6171  Ausbildung Verkäufer (m/w/d) / Kaufmann im Ein...               
-6172  Trainee stellvertretender Filialleiter (m/w/d)...               
-6173  Ausbildung Verkäufer (m/w/d) / Kaufmann im Ein...               
-
-                                     textresponsibility closing_date latitude   
-0      lt div class quot aldi externer stellentitel ...                        \
-1      lt div class quot aldi externer stellentitel ...                         
-2      lt div class quot aldi externer stellentitel ...                         
-3      lt div class quot aldi externer stellentitel ...                         
-4      lt div class quot aldi externer stellentitel ...                         
-...                                                 ...          ...      ...   
-6169   lt div class quot aldi externer stellentitel ...                         
-6170   lt div class quot aldi externer stellentitel ...                         
-6171   lt div class quot aldi externer stellentitel ...                         
-6172   lt div class quot aldi externer stellentitel ...                         
-6173   lt div class quot aldi externer stellentitel ...                         
-
-     contracttype       entrylevel employmentarea referenceid  
-0                  Berufserfahrene                             
-1                          Schüler                             
-2                  Berufserfahrene                             
-3                          Schüler                             
-4                          Schüler                             
-...           ...              ...            ...         ...  
-6169                       Schüler                             
-6170                       Schüler                             
-6171                       Schüler                             
-6172               Berufserfahrene                             
-6173                       Schüler                             
-
-[6174 rows x 12 columns]</code></pre>
-</div>
-</div>
-<div class="cell" data-execution_count="10">
-<div class="cell-output cell-output-stdout">
-<pre><code>After drop there were 6174 lines in the dataframe</code></pre>
-</div>
-</div>
-</div>
-<div id="tabset-2-3">
-<div class="cell" data-execution_count="11">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1"></a><span class="co"># df.InfoProvider.replace(inplace=True, to_replace="S08/", value="")</span></span>
-<span id="cb12-2"><a href="#cb12-2"></a><span class="co"># df.InfoArea.replace(inplace=True, to_replace="S08/", value="")</span></span>
-<span id="cb12-3"><a href="#cb12-3"></a><span class="co"># df.Merkmalname.replace(inplace=True, to_replace="S08/", value="")</span></span>
-<span id="cb12-4"><a href="#cb12-4"></a><span class="bu">print</span>(df.head())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>   Unnamed: 0 country_key        ids   
-0           0          ML  878172701  \
-1           1          ML  859517501   
-2           2          ML  878181801   
-3           3          ML  857544701   
-4           4          ML  857349901   
-
-                                               title salaryvalue   
-0      Aushilfe Verkauf (m/w/d) (Krefeld, DE, 47803)              \
-1  Ausbildung Verkäufer (m/w/d) / Kaufmann im Ein...               
-2        Aushilfe Verkauf (m/w/d) (Moers, DE, 47447)               
-3  Ausbildung Verkäufer (m/w/d) / Kaufmann im Ein...               
-4  Ausbildung Verkäufer (m/w/d) / Kaufmann im Ein...               
-
-                                  textresponsibility closing_date latitude   
-0   lt div class quot aldi externer stellentitel ...                        \
-1   lt div class quot aldi externer stellentitel ...                         
-2   lt div class quot aldi externer stellentitel ...                         
-3   lt div class quot aldi externer stellentitel ...                         
-4   lt div class quot aldi externer stellentitel ...                         
-
-  contracttype       entrylevel employmentarea referenceid  
-0               Berufserfahrene                             
-1                       Schüler                             
-2               Berufserfahrene                             
-3                       Schüler                             
-4                       Schüler                             </code></pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-</section></section>
-<section>
-<section id="analysis" class="title-slide slide level1 center" data-number="3">
-<h1><span class="header-section-number">3</span> Analysis</h1>
-<p>Analysis of the business questions.</p>
-</section>
-<section id="header-3" class="slide level2" data-number="3.1">
-<h2><span class="header-section-number">3.1</span> Header 3</h2>
-<div class="cell columns column-output-location" data-execution_count="12">
-<div class="column">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1"></a>r <span class="op">=</span> np.arange(<span class="dv">0</span>, <span class="dv">2</span>, <span class="fl">0.01</span>)</span>
-<span id="cb14-2"><a href="#cb14-2"></a>theta <span class="op">=</span> <span class="dv">2</span> <span class="op">*</span> np.pi <span class="op">*</span> r</span>
-<span id="cb14-3"><a href="#cb14-3"></a>fig, ax <span class="op">=</span> plt.subplots(</span>
-<span id="cb14-4"><a href="#cb14-4"></a>    subplot_kw<span class="op">=</span>{<span class="st">'projection'</span>:</span>
-<span id="cb14-5"><a href="#cb14-5"></a>                <span class="st">'polar'</span>})</span>
-<span id="cb14-6"><a href="#cb14-6"></a>ax.plot(theta, r)</span>
-<span id="cb14-7"><a href="#cb14-7"></a>ax.set_rticks([<span class="fl">0.5</span>, <span class="dv">1</span>, <span class="fl">1.5</span>, <span class="dv">2</span>])</span>
-<span id="cb14-8"><a href="#cb14-8"></a>ax.grid(<span class="va">True</span>)</span>
-<span id="cb14-9"><a href="#cb14-9"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div><div class="column">
-<div class="cell-output cell-output-display">
-<div id="fig-polar" class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="Folien_files/figure-revealjs/fig-polar-output-1.png" width="450" height="439"></p>
-<p></p><figcaption>Figure&nbsp;1: A line plot on a polar axis</figcaption><p></p>
-</figure>
-</div>
-</div>
-</div>
-</div>
-</section></section>
-<section>
-<section id="end" class="title-slide slide level1 center" data-number="4">
-<h1><span class="header-section-number">4</span> End</h1>
-<div class="cell" data-execution_count="13">
-<div class="cell-output cell-output-display">
-<p>The radius of the circle is 10.</p>
-</div>
-</div>
 </section>
 <section id="references" class="slide level2" data-number="4.1">
 <h2><span class="header-section-number">4.1</span> References</h2>
@@ -925,6 +1258,9 @@ max    6173.000000  9.123569e+08</code></pre>
           RevealZoom
         ]
       });
+    </script>
+    <script type="application/vnd.jupyter.widget-state+json">
+    {"state":{"006286c1259a4fd89d4a73318449f986":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"HTMLStyleModel","state":{"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"HTMLStyleModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"StyleView","background":null,"description_width":"","font_size":null,"text_color":null}},"027bd5e44f3b4cc4a5018e89acc53c22":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"HTMLStyleModel","state":{"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"HTMLStyleModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"StyleView","background":null,"description_width":"","font_size":null,"text_color":null}},"04463ad6873e480c9abaa311ab127231":{"model_module":"@jupyter-widgets/base","model_module_version":"2.0.0","model_name":"LayoutModel","state":{"_model_module":"@jupyter-widgets/base","_model_module_version":"2.0.0","_model_name":"LayoutModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"LayoutView","align_content":null,"align_items":null,"align_self":null,"border_bottom":null,"border_left":null,"border_right":null,"border_top":null,"bottom":null,"display":null,"flex":null,"flex_flow":null,"grid_area":null,"grid_auto_columns":null,"grid_auto_flow":null,"grid_auto_rows":null,"grid_column":null,"grid_gap":null,"grid_row":null,"grid_template_areas":null,"grid_template_columns":null,"grid_template_rows":null,"height":null,"justify_content":null,"justify_items":null,"left":null,"margin":null,"max_height":null,"max_width":null,"min_height":null,"min_width":null,"object_fit":null,"object_position":null,"order":null,"overflow":null,"padding":null,"right":null,"top":null,"visibility":null,"width":null}},"0aa6093f385c43c587b22dc1df4b5cff":{"model_module":"@jupyter-widgets/base","model_module_version":"2.0.0","model_name":"LayoutModel","state":{"_model_module":"@jupyter-widgets/base","_model_module_version":"2.0.0","_model_name":"LayoutModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"LayoutView","align_content":null,"align_items":null,"align_self":null,"border_bottom":null,"border_left":null,"border_right":null,"border_top":null,"bottom":null,"display":null,"flex":null,"flex_flow":null,"grid_area":null,"grid_auto_columns":null,"grid_auto_flow":null,"grid_auto_rows":null,"grid_column":null,"grid_gap":null,"grid_row":null,"grid_template_areas":null,"grid_template_columns":null,"grid_template_rows":null,"height":null,"justify_content":null,"justify_items":null,"left":null,"margin":null,"max_height":null,"max_width":null,"min_height":null,"min_width":null,"object_fit":null,"object_position":null,"order":null,"overflow":null,"padding":null,"right":null,"top":null,"visibility":null,"width":null}},"0ad9e6d4af484d55bdc4ef0869bfa987":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"HTMLStyleModel","state":{"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"HTMLStyleModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"StyleView","background":null,"description_width":"","font_size":null,"text_color":null}},"0afb3644b60f4f5e9b72cc96d141b19a":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"HTMLStyleModel","state":{"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"HTMLStyleModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"StyleView","background":null,"description_width":"","font_size":null,"text_color":null}},"0e203cb486b2424084f64d5aedf085a4":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"HBoxModel","state":{"_dom_classes":[],"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"HBoxModel","_view_count":null,"_view_module":"@jupyter-widgets/controls","_view_module_version":"2.0.0","_view_name":"HBoxView","box_style":"","children":["IPY_MODEL_4563d433ecc34a5d99ea8b2104216d93","IPY_MODEL_3bd835e60cf943fb922c2629780003ac","IPY_MODEL_f1bdeadf0e3948698a5ce91a6fcb496b"],"layout":"IPY_MODEL_64dae1bccb8c46c293a48f7bddf293ee","tabbable":null,"tooltip":null}},"0fcdb6f06f43472b91c0e02865b714e4":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"HTMLStyleModel","state":{"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"HTMLStyleModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"StyleView","background":null,"description_width":"","font_size":null,"text_color":null}},"124db048b233433f9b1338994f86f371":{"model_module":"@jupyter-widgets/base","model_module_version":"2.0.0","model_name":"LayoutModel","state":{"_model_module":"@jupyter-widgets/base","_model_module_version":"2.0.0","_model_name":"LayoutModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"LayoutView","align_content":null,"align_items":null,"align_self":null,"border_bottom":null,"border_left":null,"border_right":null,"border_top":null,"bottom":null,"display":null,"flex":null,"flex_flow":null,"grid_area":null,"grid_auto_columns":null,"grid_auto_flow":null,"grid_auto_rows":null,"grid_column":null,"grid_gap":null,"grid_row":null,"grid_template_areas":null,"grid_template_columns":null,"grid_template_rows":null,"height":null,"justify_content":null,"justify_items":null,"left":null,"margin":null,"max_height":null,"max_width":null,"min_height":null,"min_width":null,"object_fit":null,"object_position":null,"order":null,"overflow":null,"padding":null,"right":null,"top":null,"visibility":null,"width":null}},"16a6519b5ef24e70afb18c186522a965":{"model_module":"@jupyter-widgets/base","model_module_version":"2.0.0","model_name":"LayoutModel","state":{"_model_module":"@jupyter-widgets/base","_model_module_version":"2.0.0","_model_name":"LayoutModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"LayoutView","align_content":null,"align_items":null,"align_self":null,"border_bottom":null,"border_left":null,"border_right":null,"border_top":null,"bottom":null,"display":null,"flex":null,"flex_flow":null,"grid_area":null,"grid_auto_columns":null,"grid_auto_flow":null,"grid_auto_rows":null,"grid_column":null,"grid_gap":null,"grid_row":null,"grid_template_areas":null,"grid_template_columns":null,"grid_template_rows":null,"height":null,"justify_content":null,"justify_items":null,"left":null,"margin":null,"max_height":null,"max_width":null,"min_height":null,"min_width":null,"object_fit":null,"object_position":null,"order":null,"overflow":null,"padding":null,"right":null,"top":null,"visibility":null,"width":null}},"1722c2c344484f69b1a664952f0cb8da":{"model_module":"@jupyter-widgets/base","model_module_version":"2.0.0","model_name":"LayoutModel","state":{"_model_module":"@jupyter-widgets/base","_model_module_version":"2.0.0","_model_name":"LayoutModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"LayoutView","align_content":null,"align_items":null,"align_self":null,"border_bottom":null,"border_left":null,"border_right":null,"border_top":null,"bottom":null,"display":null,"flex":null,"flex_flow":null,"grid_area":null,"grid_auto_columns":null,"grid_auto_flow":null,"grid_auto_rows":null,"grid_column":null,"grid_gap":null,"grid_row":null,"grid_template_areas":null,"grid_template_columns":null,"grid_template_rows":null,"height":null,"justify_content":null,"justify_items":null,"left":null,"margin":null,"max_height":null,"max_width":null,"min_height":null,"min_width":null,"object_fit":null,"object_position":null,"order":null,"overflow":null,"padding":null,"right":null,"top":null,"visibility":null,"width":null}},"1df6216ce0944689b8dcf7ad32ada48b":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"HTMLModel","state":{"_dom_classes":[],"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"HTMLModel","_view_count":null,"_view_module":"@jupyter-widgets/controls","_view_module_version":"2.0.0","_view_name":"HTMLView","description":"","description_allow_html":false,"layout":"IPY_MODEL_d595a99ac0b945e98ca3823f0190b528","placeholder":"​","style":"IPY_MODEL_cc122d7b08284732a6041a0336642043","tabbable":null,"tooltip":null,"value":" 100/100 [00:08&lt;00:00, 17.74it/s]"}},"22243333978c469f9077aff4bfb3a600":{"model_module":"@jupyter-widgets/base","model_module_version":"2.0.0","model_name":"LayoutModel","state":{"_model_module":"@jupyter-widgets/base","_model_module_version":"2.0.0","_model_name":"LayoutModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"LayoutView","align_content":null,"align_items":null,"align_self":null,"border_bottom":null,"border_left":null,"border_right":null,"border_top":null,"bottom":null,"display":null,"flex":null,"flex_flow":null,"grid_area":null,"grid_auto_columns":null,"grid_auto_flow":null,"grid_auto_rows":null,"grid_column":null,"grid_gap":null,"grid_row":null,"grid_template_areas":null,"grid_template_columns":null,"grid_template_rows":null,"height":null,"justify_content":null,"justify_items":null,"left":null,"margin":null,"max_height":null,"max_width":null,"min_height":null,"min_width":null,"object_fit":null,"object_position":null,"order":null,"overflow":null,"padding":null,"right":null,"top":null,"visibility":null,"width":null}},"23f97b7e13df4468aa07b783a194fd54":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"ProgressStyleModel","state":{"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"ProgressStyleModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"StyleView","bar_color":null,"description_width":""}},"2885459a3a10409787e3dad3aa79d8c2":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"HTMLModel","state":{"_dom_classes":[],"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"HTMLModel","_view_count":null,"_view_module":"@jupyter-widgets/controls","_view_module_version":"2.0.0","_view_name":"HTMLView","description":"","description_allow_html":false,"layout":"IPY_MODEL_e5be97039ef646b991c71255e995b49e","placeholder":"​","style":"IPY_MODEL_9c7f3978ad2344d0bff923bbdc69000a","tabbable":null,"tooltip":null,"value":" 100/100 [00:02&lt;00:00, 42.99it/s]"}},"31fa4ae8e28a400fb7fa51adba825418":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"HTMLModel","state":{"_dom_classes":[],"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"HTMLModel","_view_count":null,"_view_module":"@jupyter-widgets/controls","_view_module_version":"2.0.0","_view_name":"HTMLView","description":"","description_allow_html":false,"layout":"IPY_MODEL_f2475bc959864473b357e2fd09aeca9c","placeholder":"​","style":"IPY_MODEL_b3b6651da78c4e649f63d88518240ffb","tabbable":null,"tooltip":null,"value":"100%"}},"337af470c433471dbeaea8bd6d21bf43":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"HTMLStyleModel","state":{"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"HTMLStyleModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"StyleView","background":null,"description_width":"","font_size":null,"text_color":null}},"33b1373349ef493f80eeb4c926114331":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"ProgressStyleModel","state":{"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"ProgressStyleModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"StyleView","bar_color":null,"description_width":""}},"351f9e6f45dd4e41be37e522b1a0dcec":{"model_module":"@jupyter-widgets/base","model_module_version":"2.0.0","model_name":"LayoutModel","state":{"_model_module":"@jupyter-widgets/base","_model_module_version":"2.0.0","_model_name":"LayoutModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"LayoutView","align_content":null,"align_items":null,"align_self":null,"border_bottom":null,"border_left":null,"border_right":null,"border_top":null,"bottom":null,"display":null,"flex":null,"flex_flow":null,"grid_area":null,"grid_auto_columns":null,"grid_auto_flow":null,"grid_auto_rows":null,"grid_column":null,"grid_gap":null,"grid_row":null,"grid_template_areas":null,"grid_template_columns":null,"grid_template_rows":null,"height":null,"justify_content":null,"justify_items":null,"left":null,"margin":null,"max_height":null,"max_width":null,"min_height":null,"min_width":null,"object_fit":null,"object_position":null,"order":null,"overflow":null,"padding":null,"right":null,"top":null,"visibility":null,"width":null}},"35abf772449c4ef1b49bb80a5ab143bd":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"HTMLStyleModel","state":{"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"HTMLStyleModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"StyleView","background":null,"description_width":"","font_size":null,"text_color":null}},"37eb2fbc32354ac884dc50542215af9b":{"model_module":"@jupyter-widgets/base","model_module_version":"2.0.0","model_name":"LayoutModel","state":{"_model_module":"@jupyter-widgets/base","_model_module_version":"2.0.0","_model_name":"LayoutModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"LayoutView","align_content":null,"align_items":null,"align_self":null,"border_bottom":null,"border_left":null,"border_right":null,"border_top":null,"bottom":null,"display":null,"flex":null,"flex_flow":null,"grid_area":null,"grid_auto_columns":null,"grid_auto_flow":null,"grid_auto_rows":null,"grid_column":null,"grid_gap":null,"grid_row":null,"grid_template_areas":null,"grid_template_columns":null,"grid_template_rows":null,"height":null,"justify_content":null,"justify_items":null,"left":null,"margin":null,"max_height":null,"max_width":null,"min_height":null,"min_width":null,"object_fit":null,"object_position":null,"order":null,"overflow":null,"padding":null,"right":null,"top":null,"visibility":null,"width":null}},"38201e2ac62c499fb3f9aeceec75fa69":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"HTMLModel","state":{"_dom_classes":[],"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"HTMLModel","_view_count":null,"_view_module":"@jupyter-widgets/controls","_view_module_version":"2.0.0","_view_name":"HTMLView","description":"","description_allow_html":false,"layout":"IPY_MODEL_9edb7c062b01419bae1ad49b3627f20e","placeholder":"​","style":"IPY_MODEL_6fd6dc0aa3d84e5bac38145078c84a87","tabbable":null,"tooltip":null,"value":"100%"}},"3bd835e60cf943fb922c2629780003ac":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"FloatProgressModel","state":{"_dom_classes":[],"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"FloatProgressModel","_view_count":null,"_view_module":"@jupyter-widgets/controls","_view_module_version":"2.0.0","_view_name":"ProgressView","bar_style":"success","description":"","description_allow_html":false,"layout":"IPY_MODEL_59ac7812f53041178520844bff797556","max":100,"min":0,"orientation":"horizontal","style":"IPY_MODEL_9bb90fdd755e40e29b58c39b1d905b9a","tabbable":null,"tooltip":null,"value":100}},"441f400221c54183bf5e7a017c017f54":{"model_module":"@jupyter-widgets/base","model_module_version":"2.0.0","model_name":"LayoutModel","state":{"_model_module":"@jupyter-widgets/base","_model_module_version":"2.0.0","_model_name":"LayoutModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"LayoutView","align_content":null,"align_items":null,"align_self":null,"border_bottom":null,"border_left":null,"border_right":null,"border_top":null,"bottom":null,"display":null,"flex":null,"flex_flow":null,"grid_area":null,"grid_auto_columns":null,"grid_auto_flow":null,"grid_auto_rows":null,"grid_column":null,"grid_gap":null,"grid_row":null,"grid_template_areas":null,"grid_template_columns":null,"grid_template_rows":null,"height":null,"justify_content":null,"justify_items":null,"left":null,"margin":null,"max_height":null,"max_width":null,"min_height":null,"min_width":null,"object_fit":null,"object_position":null,"order":null,"overflow":null,"padding":null,"right":null,"top":null,"visibility":null,"width":null}},"44fab7bed0174c0a8bc60756a3a9ab6b":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"HTMLStyleModel","state":{"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"HTMLStyleModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"StyleView","background":null,"description_width":"","font_size":null,"text_color":null}},"4563d433ecc34a5d99ea8b2104216d93":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"HTMLModel","state":{"_dom_classes":[],"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"HTMLModel","_view_count":null,"_view_module":"@jupyter-widgets/controls","_view_module_version":"2.0.0","_view_name":"HTMLView","description":"","description_allow_html":false,"layout":"IPY_MODEL_124db048b233433f9b1338994f86f371","placeholder":"​","style":"IPY_MODEL_337af470c433471dbeaea8bd6d21bf43","tabbable":null,"tooltip":null,"value":"100%"}},"465b4f0c27104713bbb4bc79f806ee9f":{"model_module":"@jupyter-widgets/base","model_module_version":"2.0.0","model_name":"LayoutModel","state":{"_model_module":"@jupyter-widgets/base","_model_module_version":"2.0.0","_model_name":"LayoutModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"LayoutView","align_content":null,"align_items":null,"align_self":null,"border_bottom":null,"border_left":null,"border_right":null,"border_top":null,"bottom":null,"display":null,"flex":null,"flex_flow":null,"grid_area":null,"grid_auto_columns":null,"grid_auto_flow":null,"grid_auto_rows":null,"grid_column":null,"grid_gap":null,"grid_row":null,"grid_template_areas":null,"grid_template_columns":null,"grid_template_rows":null,"height":null,"justify_content":null,"justify_items":null,"left":null,"margin":null,"max_height":null,"max_width":null,"min_height":null,"min_width":null,"object_fit":null,"object_position":null,"order":null,"overflow":null,"padding":null,"right":null,"top":null,"visibility":null,"width":null}},"4907050961bb48c2837d9ee397c23f11":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"HTMLStyleModel","state":{"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"HTMLStyleModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"StyleView","background":null,"description_width":"","font_size":null,"text_color":null}},"4c92caa71a344d03afdd39bb2b34270d":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"HTMLModel","state":{"_dom_classes":[],"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"HTMLModel","_view_count":null,"_view_module":"@jupyter-widgets/controls","_view_module_version":"2.0.0","_view_name":"HTMLView","description":"","description_allow_html":false,"layout":"IPY_MODEL_ab733768cbb24f04a694886338e3347a","placeholder":"​","style":"IPY_MODEL_612af32a13d94e50861a6762533a889c","tabbable":null,"tooltip":null,"value":"100%"}},"4f57a3b48a0c4679a52721857331af57":{"model_module":"@jupyter-widgets/base","model_module_version":"2.0.0","model_name":"LayoutModel","state":{"_model_module":"@jupyter-widgets/base","_model_module_version":"2.0.0","_model_name":"LayoutModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"LayoutView","align_content":null,"align_items":null,"align_self":null,"border_bottom":null,"border_left":null,"border_right":null,"border_top":null,"bottom":null,"display":null,"flex":null,"flex_flow":null,"grid_area":null,"grid_auto_columns":null,"grid_auto_flow":null,"grid_auto_rows":null,"grid_column":null,"grid_gap":null,"grid_row":null,"grid_template_areas":null,"grid_template_columns":null,"grid_template_rows":null,"height":null,"justify_content":null,"justify_items":null,"left":null,"margin":null,"max_height":null,"max_width":null,"min_height":null,"min_width":null,"object_fit":null,"object_position":null,"order":null,"overflow":null,"padding":null,"right":null,"top":null,"visibility":null,"width":null}},"560d3c5a92c84c509cac3e5d1b5e64d4":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"HTMLModel","state":{"_dom_classes":[],"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"HTMLModel","_view_count":null,"_view_module":"@jupyter-widgets/controls","_view_module_version":"2.0.0","_view_name":"HTMLView","description":"","description_allow_html":false,"layout":"IPY_MODEL_16a6519b5ef24e70afb18c186522a965","placeholder":"​","style":"IPY_MODEL_0fcdb6f06f43472b91c0e02865b714e4","tabbable":null,"tooltip":null,"value":" 100/100 [00:07&lt;00:00, 12.51it/s]"}},"57f17b96072643088ad45cfe7f2e0868":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"FloatProgressModel","state":{"_dom_classes":[],"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"FloatProgressModel","_view_count":null,"_view_module":"@jupyter-widgets/controls","_view_module_version":"2.0.0","_view_name":"ProgressView","bar_style":"success","description":"","description_allow_html":false,"layout":"IPY_MODEL_b04411e0d86c4dbfb2c78e3a076f0c76","max":100,"min":0,"orientation":"horizontal","style":"IPY_MODEL_23f97b7e13df4468aa07b783a194fd54","tabbable":null,"tooltip":null,"value":100}},"59ac7812f53041178520844bff797556":{"model_module":"@jupyter-widgets/base","model_module_version":"2.0.0","model_name":"LayoutModel","state":{"_model_module":"@jupyter-widgets/base","_model_module_version":"2.0.0","_model_name":"LayoutModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"LayoutView","align_content":null,"align_items":null,"align_self":null,"border_bottom":null,"border_left":null,"border_right":null,"border_top":null,"bottom":null,"display":null,"flex":null,"flex_flow":null,"grid_area":null,"grid_auto_columns":null,"grid_auto_flow":null,"grid_auto_rows":null,"grid_column":null,"grid_gap":null,"grid_row":null,"grid_template_areas":null,"grid_template_columns":null,"grid_template_rows":null,"height":null,"justify_content":null,"justify_items":null,"left":null,"margin":null,"max_height":null,"max_width":null,"min_height":null,"min_width":null,"object_fit":null,"object_position":null,"order":null,"overflow":null,"padding":null,"right":null,"top":null,"visibility":null,"width":null}},"5e5f48376216489fbf4e2f5c24355f45":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"ProgressStyleModel","state":{"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"ProgressStyleModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"StyleView","bar_color":null,"description_width":""}},"5f4f0c1ed76945b68c2332e97aa7ecb8":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"FloatProgressModel","state":{"_dom_classes":[],"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"FloatProgressModel","_view_count":null,"_view_module":"@jupyter-widgets/controls","_view_module_version":"2.0.0","_view_name":"ProgressView","bar_style":"success","description":"","description_allow_html":false,"layout":"IPY_MODEL_0aa6093f385c43c587b22dc1df4b5cff","max":100,"min":0,"orientation":"horizontal","style":"IPY_MODEL_33b1373349ef493f80eeb4c926114331","tabbable":null,"tooltip":null,"value":100}},"612af32a13d94e50861a6762533a889c":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"HTMLStyleModel","state":{"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"HTMLStyleModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"StyleView","background":null,"description_width":"","font_size":null,"text_color":null}},"645d32ae1eea4e93b35482aa484604a5":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"ProgressStyleModel","state":{"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"ProgressStyleModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"StyleView","bar_color":null,"description_width":""}},"64dae1bccb8c46c293a48f7bddf293ee":{"model_module":"@jupyter-widgets/base","model_module_version":"2.0.0","model_name":"LayoutModel","state":{"_model_module":"@jupyter-widgets/base","_model_module_version":"2.0.0","_model_name":"LayoutModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"LayoutView","align_content":null,"align_items":null,"align_self":null,"border_bottom":null,"border_left":null,"border_right":null,"border_top":null,"bottom":null,"display":null,"flex":null,"flex_flow":null,"grid_area":null,"grid_auto_columns":null,"grid_auto_flow":null,"grid_auto_rows":null,"grid_column":null,"grid_gap":null,"grid_row":null,"grid_template_areas":null,"grid_template_columns":null,"grid_template_rows":null,"height":null,"justify_content":null,"justify_items":null,"left":null,"margin":null,"max_height":null,"max_width":null,"min_height":null,"min_width":null,"object_fit":null,"object_position":null,"order":null,"overflow":null,"padding":null,"right":null,"top":null,"visibility":null,"width":null}},"674c2ab9326c40058e5a5b74bec1bb4d":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"HTMLModel","state":{"_dom_classes":[],"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"HTMLModel","_view_count":null,"_view_module":"@jupyter-widgets/controls","_view_module_version":"2.0.0","_view_name":"HTMLView","description":"","description_allow_html":false,"layout":"IPY_MODEL_935a73709a5242b889355e332baaa43c","placeholder":"​","style":"IPY_MODEL_4907050961bb48c2837d9ee397c23f11","tabbable":null,"tooltip":null,"value":" 100/100 [00:08&lt;00:00, 11.25it/s]"}},"6f99d4a947e745728423347f6ff60c07":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"FloatProgressModel","state":{"_dom_classes":[],"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"FloatProgressModel","_view_count":null,"_view_module":"@jupyter-widgets/controls","_view_module_version":"2.0.0","_view_name":"ProgressView","bar_style":"success","description":"","description_allow_html":false,"layout":"IPY_MODEL_ed22065acfb147b1a64f43c3cc338c94","max":100,"min":0,"orientation":"horizontal","style":"IPY_MODEL_8c3e0f6d668c4f69af78318e7094ba66","tabbable":null,"tooltip":null,"value":100}},"6fd6dc0aa3d84e5bac38145078c84a87":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"HTMLStyleModel","state":{"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"HTMLStyleModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"StyleView","background":null,"description_width":"","font_size":null,"text_color":null}},"74ccf0c2afaa4f73a0fe28d47a10bb02":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"HTMLModel","state":{"_dom_classes":[],"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"HTMLModel","_view_count":null,"_view_module":"@jupyter-widgets/controls","_view_module_version":"2.0.0","_view_name":"HTMLView","description":"","description_allow_html":false,"layout":"IPY_MODEL_7d144bfa5d904e70b846011b2eae275a","placeholder":"​","style":"IPY_MODEL_0ad9e6d4af484d55bdc4ef0869bfa987","tabbable":null,"tooltip":null,"value":"100%"}},"7584d2afdf9b437f9ec8bc80fee48127":{"model_module":"@jupyter-widgets/base","model_module_version":"2.0.0","model_name":"LayoutModel","state":{"_model_module":"@jupyter-widgets/base","_model_module_version":"2.0.0","_model_name":"LayoutModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"LayoutView","align_content":null,"align_items":null,"align_self":null,"border_bottom":null,"border_left":null,"border_right":null,"border_top":null,"bottom":null,"display":null,"flex":null,"flex_flow":null,"grid_area":null,"grid_auto_columns":null,"grid_auto_flow":null,"grid_auto_rows":null,"grid_column":null,"grid_gap":null,"grid_row":null,"grid_template_areas":null,"grid_template_columns":null,"grid_template_rows":null,"height":null,"justify_content":null,"justify_items":null,"left":null,"margin":null,"max_height":null,"max_width":null,"min_height":null,"min_width":null,"object_fit":null,"object_position":null,"order":null,"overflow":null,"padding":null,"right":null,"top":null,"visibility":null,"width":null}},"765d627ffc1b4c56a20c30e731df2666":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"ProgressStyleModel","state":{"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"ProgressStyleModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"StyleView","bar_color":null,"description_width":""}},"783d823e2fa140c6872cd1da567bd0ff":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"HTMLModel","state":{"_dom_classes":[],"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"HTMLModel","_view_count":null,"_view_module":"@jupyter-widgets/controls","_view_module_version":"2.0.0","_view_name":"HTMLView","description":"","description_allow_html":false,"layout":"IPY_MODEL_04463ad6873e480c9abaa311ab127231","placeholder":"​","style":"IPY_MODEL_0afb3644b60f4f5e9b72cc96d141b19a","tabbable":null,"tooltip":null,"value":" 100/100 [00:02&lt;00:00, 38.18it/s]"}},"79925e80547b4038ba0ec08954a6b5f1":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"HTMLModel","state":{"_dom_classes":[],"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"HTMLModel","_view_count":null,"_view_module":"@jupyter-widgets/controls","_view_module_version":"2.0.0","_view_name":"HTMLView","description":"","description_allow_html":false,"layout":"IPY_MODEL_351f9e6f45dd4e41be37e522b1a0dcec","placeholder":"​","style":"IPY_MODEL_44fab7bed0174c0a8bc60756a3a9ab6b","tabbable":null,"tooltip":null,"value":"100%"}},"7d144bfa5d904e70b846011b2eae275a":{"model_module":"@jupyter-widgets/base","model_module_version":"2.0.0","model_name":"LayoutModel","state":{"_model_module":"@jupyter-widgets/base","_model_module_version":"2.0.0","_model_name":"LayoutModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"LayoutView","align_content":null,"align_items":null,"align_self":null,"border_bottom":null,"border_left":null,"border_right":null,"border_top":null,"bottom":null,"display":null,"flex":null,"flex_flow":null,"grid_area":null,"grid_auto_columns":null,"grid_auto_flow":null,"grid_auto_rows":null,"grid_column":null,"grid_gap":null,"grid_row":null,"grid_template_areas":null,"grid_template_columns":null,"grid_template_rows":null,"height":null,"justify_content":null,"justify_items":null,"left":null,"margin":null,"max_height":null,"max_width":null,"min_height":null,"min_width":null,"object_fit":null,"object_position":null,"order":null,"overflow":null,"padding":null,"right":null,"top":null,"visibility":null,"width":null}},"7d2b1a96b0654a32bc39db0277ed7da7":{"model_module":"@jupyter-widgets/base","model_module_version":"2.0.0","model_name":"LayoutModel","state":{"_model_module":"@jupyter-widgets/base","_model_module_version":"2.0.0","_model_name":"LayoutModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"LayoutView","align_content":null,"align_items":null,"align_self":null,"border_bottom":null,"border_left":null,"border_right":null,"border_top":null,"bottom":null,"display":null,"flex":null,"flex_flow":null,"grid_area":null,"grid_auto_columns":null,"grid_auto_flow":null,"grid_auto_rows":null,"grid_column":null,"grid_gap":null,"grid_row":null,"grid_template_areas":null,"grid_template_columns":null,"grid_template_rows":null,"height":null,"justify_content":null,"justify_items":null,"left":null,"margin":null,"max_height":null,"max_width":null,"min_height":null,"min_width":null,"object_fit":null,"object_position":null,"order":null,"overflow":null,"padding":null,"right":null,"top":null,"visibility":null,"width":null}},"7f284a8494244e578f34d64a8fcca538":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"FloatProgressModel","state":{"_dom_classes":[],"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"FloatProgressModel","_view_count":null,"_view_module":"@jupyter-widgets/controls","_view_module_version":"2.0.0","_view_name":"ProgressView","bar_style":"success","description":"","description_allow_html":false,"layout":"IPY_MODEL_8f03eef7be76462bbe4abc3697f9f0d8","max":100,"min":0,"orientation":"horizontal","style":"IPY_MODEL_645d32ae1eea4e93b35482aa484604a5","tabbable":null,"tooltip":null,"value":100}},"803cd59bd69b4c10852aaca2ced604e1":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"HBoxModel","state":{"_dom_classes":[],"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"HBoxModel","_view_count":null,"_view_module":"@jupyter-widgets/controls","_view_module_version":"2.0.0","_view_name":"HBoxView","box_style":"","children":["IPY_MODEL_79925e80547b4038ba0ec08954a6b5f1","IPY_MODEL_bb5786086f014434b7ad09d7ce9925c0","IPY_MODEL_560d3c5a92c84c509cac3e5d1b5e64d4"],"layout":"IPY_MODEL_d45fd41580324f32a39a5312e658688f","tabbable":null,"tooltip":null}},"804c05b6491b4622876d617df7934f02":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"ProgressStyleModel","state":{"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"ProgressStyleModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"StyleView","bar_color":null,"description_width":""}},"8c3e0f6d668c4f69af78318e7094ba66":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"ProgressStyleModel","state":{"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"ProgressStyleModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"StyleView","bar_color":null,"description_width":""}},"8e4a854206dc4a41bd69dd25b014d68d":{"model_module":"@jupyter-widgets/base","model_module_version":"2.0.0","model_name":"LayoutModel","state":{"_model_module":"@jupyter-widgets/base","_model_module_version":"2.0.0","_model_name":"LayoutModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"LayoutView","align_content":null,"align_items":null,"align_self":null,"border_bottom":null,"border_left":null,"border_right":null,"border_top":null,"bottom":null,"display":null,"flex":null,"flex_flow":null,"grid_area":null,"grid_auto_columns":null,"grid_auto_flow":null,"grid_auto_rows":null,"grid_column":null,"grid_gap":null,"grid_row":null,"grid_template_areas":null,"grid_template_columns":null,"grid_template_rows":null,"height":null,"justify_content":null,"justify_items":null,"left":null,"margin":null,"max_height":null,"max_width":null,"min_height":null,"min_width":null,"object_fit":null,"object_position":null,"order":null,"overflow":null,"padding":null,"right":null,"top":null,"visibility":null,"width":null}},"8f03eef7be76462bbe4abc3697f9f0d8":{"model_module":"@jupyter-widgets/base","model_module_version":"2.0.0","model_name":"LayoutModel","state":{"_model_module":"@jupyter-widgets/base","_model_module_version":"2.0.0","_model_name":"LayoutModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"LayoutView","align_content":null,"align_items":null,"align_self":null,"border_bottom":null,"border_left":null,"border_right":null,"border_top":null,"bottom":null,"display":null,"flex":null,"flex_flow":null,"grid_area":null,"grid_auto_columns":null,"grid_auto_flow":null,"grid_auto_rows":null,"grid_column":null,"grid_gap":null,"grid_row":null,"grid_template_areas":null,"grid_template_columns":null,"grid_template_rows":null,"height":null,"justify_content":null,"justify_items":null,"left":null,"margin":null,"max_height":null,"max_width":null,"min_height":null,"min_width":null,"object_fit":null,"object_position":null,"order":null,"overflow":null,"padding":null,"right":null,"top":null,"visibility":null,"width":null}},"8fa700f8bddb4771a92bc9f4eaacafca":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"HTMLModel","state":{"_dom_classes":[],"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"HTMLModel","_view_count":null,"_view_module":"@jupyter-widgets/controls","_view_module_version":"2.0.0","_view_name":"HTMLView","description":"","description_allow_html":false,"layout":"IPY_MODEL_1722c2c344484f69b1a664952f0cb8da","placeholder":"​","style":"IPY_MODEL_027bd5e44f3b4cc4a5018e89acc53c22","tabbable":null,"tooltip":null,"value":" 100/100 [00:02&lt;00:00, 39.65it/s]"}},"91bb599297a54565b9db02ea9b2878d7":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"HTMLStyleModel","state":{"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"HTMLStyleModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"StyleView","background":null,"description_width":"","font_size":null,"text_color":null}},"935a73709a5242b889355e332baaa43c":{"model_module":"@jupyter-widgets/base","model_module_version":"2.0.0","model_name":"LayoutModel","state":{"_model_module":"@jupyter-widgets/base","_model_module_version":"2.0.0","_model_name":"LayoutModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"LayoutView","align_content":null,"align_items":null,"align_self":null,"border_bottom":null,"border_left":null,"border_right":null,"border_top":null,"bottom":null,"display":null,"flex":null,"flex_flow":null,"grid_area":null,"grid_auto_columns":null,"grid_auto_flow":null,"grid_auto_rows":null,"grid_column":null,"grid_gap":null,"grid_row":null,"grid_template_areas":null,"grid_template_columns":null,"grid_template_rows":null,"height":null,"justify_content":null,"justify_items":null,"left":null,"margin":null,"max_height":null,"max_width":null,"min_height":null,"min_width":null,"object_fit":null,"object_position":null,"order":null,"overflow":null,"padding":null,"right":null,"top":null,"visibility":null,"width":null}},"9884a98f7d384aecb306e7d603e22bea":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"HBoxModel","state":{"_dom_classes":[],"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"HBoxModel","_view_count":null,"_view_module":"@jupyter-widgets/controls","_view_module_version":"2.0.0","_view_name":"HBoxView","box_style":"","children":["IPY_MODEL_b8a5fe991a1644aaa8e38f83bb8105cd","IPY_MODEL_5f4f0c1ed76945b68c2332e97aa7ecb8","IPY_MODEL_2885459a3a10409787e3dad3aa79d8c2"],"layout":"IPY_MODEL_d39b90d21fd049e2b72e4d567fc63ce8","tabbable":null,"tooltip":null}},"9bb90fdd755e40e29b58c39b1d905b9a":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"ProgressStyleModel","state":{"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"ProgressStyleModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"StyleView","bar_color":null,"description_width":""}},"9c7f3978ad2344d0bff923bbdc69000a":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"HTMLStyleModel","state":{"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"HTMLStyleModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"StyleView","background":null,"description_width":"","font_size":null,"text_color":null}},"9cec5728324a401082dee818f487a577":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"HBoxModel","state":{"_dom_classes":[],"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"HBoxModel","_view_count":null,"_view_module":"@jupyter-widgets/controls","_view_module_version":"2.0.0","_view_name":"HBoxView","box_style":"","children":["IPY_MODEL_4c92caa71a344d03afdd39bb2b34270d","IPY_MODEL_6f99d4a947e745728423347f6ff60c07","IPY_MODEL_1df6216ce0944689b8dcf7ad32ada48b"],"layout":"IPY_MODEL_4f57a3b48a0c4679a52721857331af57","tabbable":null,"tooltip":null}},"9ed9f9c725c14687a5f6279320dd84f0":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"HTMLModel","state":{"_dom_classes":[],"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"HTMLModel","_view_count":null,"_view_module":"@jupyter-widgets/controls","_view_module_version":"2.0.0","_view_name":"HTMLView","description":"","description_allow_html":false,"layout":"IPY_MODEL_7584d2afdf9b437f9ec8bc80fee48127","placeholder":"​","style":"IPY_MODEL_006286c1259a4fd89d4a73318449f986","tabbable":null,"tooltip":null,"value":"100%"}},"9edb7c062b01419bae1ad49b3627f20e":{"model_module":"@jupyter-widgets/base","model_module_version":"2.0.0","model_name":"LayoutModel","state":{"_model_module":"@jupyter-widgets/base","_model_module_version":"2.0.0","_model_name":"LayoutModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"LayoutView","align_content":null,"align_items":null,"align_self":null,"border_bottom":null,"border_left":null,"border_right":null,"border_top":null,"bottom":null,"display":null,"flex":null,"flex_flow":null,"grid_area":null,"grid_auto_columns":null,"grid_auto_flow":null,"grid_auto_rows":null,"grid_column":null,"grid_gap":null,"grid_row":null,"grid_template_areas":null,"grid_template_columns":null,"grid_template_rows":null,"height":null,"justify_content":null,"justify_items":null,"left":null,"margin":null,"max_height":null,"max_width":null,"min_height":null,"min_width":null,"object_fit":null,"object_position":null,"order":null,"overflow":null,"padding":null,"right":null,"top":null,"visibility":null,"width":null}},"ab733768cbb24f04a694886338e3347a":{"model_module":"@jupyter-widgets/base","model_module_version":"2.0.0","model_name":"LayoutModel","state":{"_model_module":"@jupyter-widgets/base","_model_module_version":"2.0.0","_model_name":"LayoutModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"LayoutView","align_content":null,"align_items":null,"align_self":null,"border_bottom":null,"border_left":null,"border_right":null,"border_top":null,"bottom":null,"display":null,"flex":null,"flex_flow":null,"grid_area":null,"grid_auto_columns":null,"grid_auto_flow":null,"grid_auto_rows":null,"grid_column":null,"grid_gap":null,"grid_row":null,"grid_template_areas":null,"grid_template_columns":null,"grid_template_rows":null,"height":null,"justify_content":null,"justify_items":null,"left":null,"margin":null,"max_height":null,"max_width":null,"min_height":null,"min_width":null,"object_fit":null,"object_position":null,"order":null,"overflow":null,"padding":null,"right":null,"top":null,"visibility":null,"width":null}},"ab82ca6886714a69868b50b750bcb83d":{"model_module":"@jupyter-widgets/base","model_module_version":"2.0.0","model_name":"LayoutModel","state":{"_model_module":"@jupyter-widgets/base","_model_module_version":"2.0.0","_model_name":"LayoutModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"LayoutView","align_content":null,"align_items":null,"align_self":null,"border_bottom":null,"border_left":null,"border_right":null,"border_top":null,"bottom":null,"display":null,"flex":null,"flex_flow":null,"grid_area":null,"grid_auto_columns":null,"grid_auto_flow":null,"grid_auto_rows":null,"grid_column":null,"grid_gap":null,"grid_row":null,"grid_template_areas":null,"grid_template_columns":null,"grid_template_rows":null,"height":null,"justify_content":null,"justify_items":null,"left":null,"margin":null,"max_height":null,"max_width":null,"min_height":null,"min_width":null,"object_fit":null,"object_position":null,"order":null,"overflow":null,"padding":null,"right":null,"top":null,"visibility":null,"width":null}},"b04411e0d86c4dbfb2c78e3a076f0c76":{"model_module":"@jupyter-widgets/base","model_module_version":"2.0.0","model_name":"LayoutModel","state":{"_model_module":"@jupyter-widgets/base","_model_module_version":"2.0.0","_model_name":"LayoutModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"LayoutView","align_content":null,"align_items":null,"align_self":null,"border_bottom":null,"border_left":null,"border_right":null,"border_top":null,"bottom":null,"display":null,"flex":null,"flex_flow":null,"grid_area":null,"grid_auto_columns":null,"grid_auto_flow":null,"grid_auto_rows":null,"grid_column":null,"grid_gap":null,"grid_row":null,"grid_template_areas":null,"grid_template_columns":null,"grid_template_rows":null,"height":null,"justify_content":null,"justify_items":null,"left":null,"margin":null,"max_height":null,"max_width":null,"min_height":null,"min_width":null,"object_fit":null,"object_position":null,"order":null,"overflow":null,"padding":null,"right":null,"top":null,"visibility":null,"width":null}},"b1ddc6c3f9194ca0a22aacb6ac946c46":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"HTMLModel","state":{"_dom_classes":[],"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"HTMLModel","_view_count":null,"_view_module":"@jupyter-widgets/controls","_view_module_version":"2.0.0","_view_name":"HTMLView","description":"","description_allow_html":false,"layout":"IPY_MODEL_c6d48b2fd7154f8da76681d7d9443744","placeholder":"​","style":"IPY_MODEL_91bb599297a54565b9db02ea9b2878d7","tabbable":null,"tooltip":null,"value":" 100/100 [00:02&lt;00:00, 34.03it/s]"}},"b3b6651da78c4e649f63d88518240ffb":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"HTMLStyleModel","state":{"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"HTMLStyleModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"StyleView","background":null,"description_width":"","font_size":null,"text_color":null}},"b47bca342de3481f8a145c75c7ae004c":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"HBoxModel","state":{"_dom_classes":[],"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"HBoxModel","_view_count":null,"_view_module":"@jupyter-widgets/controls","_view_module_version":"2.0.0","_view_name":"HBoxView","box_style":"","children":["IPY_MODEL_9ed9f9c725c14687a5f6279320dd84f0","IPY_MODEL_f482663ae1f64defa949ffadc80191be","IPY_MODEL_674c2ab9326c40058e5a5b74bec1bb4d"],"layout":"IPY_MODEL_465b4f0c27104713bbb4bc79f806ee9f","tabbable":null,"tooltip":null}},"b577b839b8064a5c893918b8891c196c":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"HBoxModel","state":{"_dom_classes":[],"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"HBoxModel","_view_count":null,"_view_module":"@jupyter-widgets/controls","_view_module_version":"2.0.0","_view_name":"HBoxView","box_style":"","children":["IPY_MODEL_74ccf0c2afaa4f73a0fe28d47a10bb02","IPY_MODEL_57f17b96072643088ad45cfe7f2e0868","IPY_MODEL_b1ddc6c3f9194ca0a22aacb6ac946c46"],"layout":"IPY_MODEL_22243333978c469f9077aff4bfb3a600","tabbable":null,"tooltip":null}},"b8a5fe991a1644aaa8e38f83bb8105cd":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"HTMLModel","state":{"_dom_classes":[],"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"HTMLModel","_view_count":null,"_view_module":"@jupyter-widgets/controls","_view_module_version":"2.0.0","_view_name":"HTMLView","description":"","description_allow_html":false,"layout":"IPY_MODEL_ca567f800cf043ebae6c7f5eb16a3771","placeholder":"​","style":"IPY_MODEL_d706e3a3cb65429d9161a51ac694653e","tabbable":null,"tooltip":null,"value":"100%"}},"bb5786086f014434b7ad09d7ce9925c0":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"FloatProgressModel","state":{"_dom_classes":[],"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"FloatProgressModel","_view_count":null,"_view_module":"@jupyter-widgets/controls","_view_module_version":"2.0.0","_view_name":"ProgressView","bar_style":"success","description":"","description_allow_html":false,"layout":"IPY_MODEL_8e4a854206dc4a41bd69dd25b014d68d","max":100,"min":0,"orientation":"horizontal","style":"IPY_MODEL_804c05b6491b4622876d617df7934f02","tabbable":null,"tooltip":null,"value":100}},"c0c2594d0c15465f90b4b5808c4e9486":{"model_module":"@jupyter-widgets/base","model_module_version":"2.0.0","model_name":"LayoutModel","state":{"_model_module":"@jupyter-widgets/base","_model_module_version":"2.0.0","_model_name":"LayoutModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"LayoutView","align_content":null,"align_items":null,"align_self":null,"border_bottom":null,"border_left":null,"border_right":null,"border_top":null,"bottom":null,"display":null,"flex":null,"flex_flow":null,"grid_area":null,"grid_auto_columns":null,"grid_auto_flow":null,"grid_auto_rows":null,"grid_column":null,"grid_gap":null,"grid_row":null,"grid_template_areas":null,"grid_template_columns":null,"grid_template_rows":null,"height":null,"justify_content":null,"justify_items":null,"left":null,"margin":null,"max_height":null,"max_width":null,"min_height":null,"min_width":null,"object_fit":null,"object_position":null,"order":null,"overflow":null,"padding":null,"right":null,"top":null,"visibility":null,"width":null}},"c6d48b2fd7154f8da76681d7d9443744":{"model_module":"@jupyter-widgets/base","model_module_version":"2.0.0","model_name":"LayoutModel","state":{"_model_module":"@jupyter-widgets/base","_model_module_version":"2.0.0","_model_name":"LayoutModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"LayoutView","align_content":null,"align_items":null,"align_self":null,"border_bottom":null,"border_left":null,"border_right":null,"border_top":null,"bottom":null,"display":null,"flex":null,"flex_flow":null,"grid_area":null,"grid_auto_columns":null,"grid_auto_flow":null,"grid_auto_rows":null,"grid_column":null,"grid_gap":null,"grid_row":null,"grid_template_areas":null,"grid_template_columns":null,"grid_template_rows":null,"height":null,"justify_content":null,"justify_items":null,"left":null,"margin":null,"max_height":null,"max_width":null,"min_height":null,"min_width":null,"object_fit":null,"object_position":null,"order":null,"overflow":null,"padding":null,"right":null,"top":null,"visibility":null,"width":null}},"ca567f800cf043ebae6c7f5eb16a3771":{"model_module":"@jupyter-widgets/base","model_module_version":"2.0.0","model_name":"LayoutModel","state":{"_model_module":"@jupyter-widgets/base","_model_module_version":"2.0.0","_model_name":"LayoutModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"LayoutView","align_content":null,"align_items":null,"align_self":null,"border_bottom":null,"border_left":null,"border_right":null,"border_top":null,"bottom":null,"display":null,"flex":null,"flex_flow":null,"grid_area":null,"grid_auto_columns":null,"grid_auto_flow":null,"grid_auto_rows":null,"grid_column":null,"grid_gap":null,"grid_row":null,"grid_template_areas":null,"grid_template_columns":null,"grid_template_rows":null,"height":null,"justify_content":null,"justify_items":null,"left":null,"margin":null,"max_height":null,"max_width":null,"min_height":null,"min_width":null,"object_fit":null,"object_position":null,"order":null,"overflow":null,"padding":null,"right":null,"top":null,"visibility":null,"width":null}},"cc122d7b08284732a6041a0336642043":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"HTMLStyleModel","state":{"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"HTMLStyleModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"StyleView","background":null,"description_width":"","font_size":null,"text_color":null}},"d39b90d21fd049e2b72e4d567fc63ce8":{"model_module":"@jupyter-widgets/base","model_module_version":"2.0.0","model_name":"LayoutModel","state":{"_model_module":"@jupyter-widgets/base","_model_module_version":"2.0.0","_model_name":"LayoutModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"LayoutView","align_content":null,"align_items":null,"align_self":null,"border_bottom":null,"border_left":null,"border_right":null,"border_top":null,"bottom":null,"display":null,"flex":null,"flex_flow":null,"grid_area":null,"grid_auto_columns":null,"grid_auto_flow":null,"grid_auto_rows":null,"grid_column":null,"grid_gap":null,"grid_row":null,"grid_template_areas":null,"grid_template_columns":null,"grid_template_rows":null,"height":null,"justify_content":null,"justify_items":null,"left":null,"margin":null,"max_height":null,"max_width":null,"min_height":null,"min_width":null,"object_fit":null,"object_position":null,"order":null,"overflow":null,"padding":null,"right":null,"top":null,"visibility":null,"width":null}},"d45fd41580324f32a39a5312e658688f":{"model_module":"@jupyter-widgets/base","model_module_version":"2.0.0","model_name":"LayoutModel","state":{"_model_module":"@jupyter-widgets/base","_model_module_version":"2.0.0","_model_name":"LayoutModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"LayoutView","align_content":null,"align_items":null,"align_self":null,"border_bottom":null,"border_left":null,"border_right":null,"border_top":null,"bottom":null,"display":null,"flex":null,"flex_flow":null,"grid_area":null,"grid_auto_columns":null,"grid_auto_flow":null,"grid_auto_rows":null,"grid_column":null,"grid_gap":null,"grid_row":null,"grid_template_areas":null,"grid_template_columns":null,"grid_template_rows":null,"height":null,"justify_content":null,"justify_items":null,"left":null,"margin":null,"max_height":null,"max_width":null,"min_height":null,"min_width":null,"object_fit":null,"object_position":null,"order":null,"overflow":null,"padding":null,"right":null,"top":null,"visibility":null,"width":null}},"d595a99ac0b945e98ca3823f0190b528":{"model_module":"@jupyter-widgets/base","model_module_version":"2.0.0","model_name":"LayoutModel","state":{"_model_module":"@jupyter-widgets/base","_model_module_version":"2.0.0","_model_name":"LayoutModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"LayoutView","align_content":null,"align_items":null,"align_self":null,"border_bottom":null,"border_left":null,"border_right":null,"border_top":null,"bottom":null,"display":null,"flex":null,"flex_flow":null,"grid_area":null,"grid_auto_columns":null,"grid_auto_flow":null,"grid_auto_rows":null,"grid_column":null,"grid_gap":null,"grid_row":null,"grid_template_areas":null,"grid_template_columns":null,"grid_template_rows":null,"height":null,"justify_content":null,"justify_items":null,"left":null,"margin":null,"max_height":null,"max_width":null,"min_height":null,"min_width":null,"object_fit":null,"object_position":null,"order":null,"overflow":null,"padding":null,"right":null,"top":null,"visibility":null,"width":null}},"d706e3a3cb65429d9161a51ac694653e":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"HTMLStyleModel","state":{"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"HTMLStyleModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"StyleView","background":null,"description_width":"","font_size":null,"text_color":null}},"e437230c32f1496dbe9daca41f4cabe1":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"HBoxModel","state":{"_dom_classes":[],"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"HBoxModel","_view_count":null,"_view_module":"@jupyter-widgets/controls","_view_module_version":"2.0.0","_view_name":"HBoxView","box_style":"","children":["IPY_MODEL_31fa4ae8e28a400fb7fa51adba825418","IPY_MODEL_7f284a8494244e578f34d64a8fcca538","IPY_MODEL_8fa700f8bddb4771a92bc9f4eaacafca"],"layout":"IPY_MODEL_ab82ca6886714a69868b50b750bcb83d","tabbable":null,"tooltip":null}},"e5be97039ef646b991c71255e995b49e":{"model_module":"@jupyter-widgets/base","model_module_version":"2.0.0","model_name":"LayoutModel","state":{"_model_module":"@jupyter-widgets/base","_model_module_version":"2.0.0","_model_name":"LayoutModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"LayoutView","align_content":null,"align_items":null,"align_self":null,"border_bottom":null,"border_left":null,"border_right":null,"border_top":null,"bottom":null,"display":null,"flex":null,"flex_flow":null,"grid_area":null,"grid_auto_columns":null,"grid_auto_flow":null,"grid_auto_rows":null,"grid_column":null,"grid_gap":null,"grid_row":null,"grid_template_areas":null,"grid_template_columns":null,"grid_template_rows":null,"height":null,"justify_content":null,"justify_items":null,"left":null,"margin":null,"max_height":null,"max_width":null,"min_height":null,"min_width":null,"object_fit":null,"object_position":null,"order":null,"overflow":null,"padding":null,"right":null,"top":null,"visibility":null,"width":null}},"ed22065acfb147b1a64f43c3cc338c94":{"model_module":"@jupyter-widgets/base","model_module_version":"2.0.0","model_name":"LayoutModel","state":{"_model_module":"@jupyter-widgets/base","_model_module_version":"2.0.0","_model_name":"LayoutModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"LayoutView","align_content":null,"align_items":null,"align_self":null,"border_bottom":null,"border_left":null,"border_right":null,"border_top":null,"bottom":null,"display":null,"flex":null,"flex_flow":null,"grid_area":null,"grid_auto_columns":null,"grid_auto_flow":null,"grid_auto_rows":null,"grid_column":null,"grid_gap":null,"grid_row":null,"grid_template_areas":null,"grid_template_columns":null,"grid_template_rows":null,"height":null,"justify_content":null,"justify_items":null,"left":null,"margin":null,"max_height":null,"max_width":null,"min_height":null,"min_width":null,"object_fit":null,"object_position":null,"order":null,"overflow":null,"padding":null,"right":null,"top":null,"visibility":null,"width":null}},"ee0e0f98afe1444c90646d837f825af7":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"FloatProgressModel","state":{"_dom_classes":[],"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"FloatProgressModel","_view_count":null,"_view_module":"@jupyter-widgets/controls","_view_module_version":"2.0.0","_view_name":"ProgressView","bar_style":"success","description":"","description_allow_html":false,"layout":"IPY_MODEL_37eb2fbc32354ac884dc50542215af9b","max":100,"min":0,"orientation":"horizontal","style":"IPY_MODEL_765d627ffc1b4c56a20c30e731df2666","tabbable":null,"tooltip":null,"value":100}},"eed5829ca09446d3bcb694b9ce4c0f51":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"HBoxModel","state":{"_dom_classes":[],"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"HBoxModel","_view_count":null,"_view_module":"@jupyter-widgets/controls","_view_module_version":"2.0.0","_view_name":"HBoxView","box_style":"","children":["IPY_MODEL_38201e2ac62c499fb3f9aeceec75fa69","IPY_MODEL_ee0e0f98afe1444c90646d837f825af7","IPY_MODEL_783d823e2fa140c6872cd1da567bd0ff"],"layout":"IPY_MODEL_7d2b1a96b0654a32bc39db0277ed7da7","tabbable":null,"tooltip":null}},"f1bdeadf0e3948698a5ce91a6fcb496b":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"HTMLModel","state":{"_dom_classes":[],"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"HTMLModel","_view_count":null,"_view_module":"@jupyter-widgets/controls","_view_module_version":"2.0.0","_view_name":"HTMLView","description":"","description_allow_html":false,"layout":"IPY_MODEL_c0c2594d0c15465f90b4b5808c4e9486","placeholder":"​","style":"IPY_MODEL_35abf772449c4ef1b49bb80a5ab143bd","tabbable":null,"tooltip":null,"value":" 100/100 [00:07&lt;00:00,  9.88it/s]"}},"f2475bc959864473b357e2fd09aeca9c":{"model_module":"@jupyter-widgets/base","model_module_version":"2.0.0","model_name":"LayoutModel","state":{"_model_module":"@jupyter-widgets/base","_model_module_version":"2.0.0","_model_name":"LayoutModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"LayoutView","align_content":null,"align_items":null,"align_self":null,"border_bottom":null,"border_left":null,"border_right":null,"border_top":null,"bottom":null,"display":null,"flex":null,"flex_flow":null,"grid_area":null,"grid_auto_columns":null,"grid_auto_flow":null,"grid_auto_rows":null,"grid_column":null,"grid_gap":null,"grid_row":null,"grid_template_areas":null,"grid_template_columns":null,"grid_template_rows":null,"height":null,"justify_content":null,"justify_items":null,"left":null,"margin":null,"max_height":null,"max_width":null,"min_height":null,"min_width":null,"object_fit":null,"object_position":null,"order":null,"overflow":null,"padding":null,"right":null,"top":null,"visibility":null,"width":null}},"f482663ae1f64defa949ffadc80191be":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"FloatProgressModel","state":{"_dom_classes":[],"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"FloatProgressModel","_view_count":null,"_view_module":"@jupyter-widgets/controls","_view_module_version":"2.0.0","_view_name":"ProgressView","bar_style":"success","description":"","description_allow_html":false,"layout":"IPY_MODEL_441f400221c54183bf5e7a017c017f54","max":100,"min":0,"orientation":"horizontal","style":"IPY_MODEL_5e5f48376216489fbf4e2f5c24355f45","tabbable":null,"tooltip":null,"value":100}}},"version_major":2,"version_minor":0}
     </script>
     <script id="quarto-html-after-body" type="application/javascript">
     window.document.addEventListener("DOMContentLoaded", function (event) {
