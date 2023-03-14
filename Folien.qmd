@@ -1,0 +1,189 @@
+---
+title: "Laborbericht"
+date: today
+date-format: long
+autor: "Bernd Baalmann und Moritz Vossel"
+format:
+    revealjs:
+        theme: default
+        logo: /Bilder/DHBW_CAS_LOGO_Sonderform.jpg
+        css: /css/logo.css
+        footer: "Bernd Baalmann und Moritz Vossel | DHBW CAS | Larborbericht Data Science"
+        toc: true
+        number-sections: true
+        scrollable: true
+        fontsize: 26pt
+        code-tools:
+          source: https://github.com/quarto-dev/quarto-web/blob/main/index.md
+        highlight-style: github
+jupyter: python3
+---
+
+```{python}
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+```
+
+
+
+# Introduction
+
+A short introduction into the use case and data
+
+
+## Use case
+
+Schwarz IT has upgraded to a new SAP businesswarehouse. Therefore it is
+of interest if the new businesswarehouse works efficiently and serves
+queries in an timely manner.
+
+  
+
+Questions for analysis:
+
+- Are there any hot spots of activity during the day?
+- Are there queries which do not get executed at least five times per week?
+
+
+::: {.notes}
+Speaker notes go here.
+:::
+
+## Dataset
+
+::: {.panel-tabset}
+
+### Tab 1
+
+First we load the dataset into a pandas dataframe.
+
+```{python}
+# | echo: true
+df = pd.read_csv(r"Daten\Aldi_Süd.csv",
+                 sep=",",
+                 header=0)
+
+```
+  
+  
+Dataframe dimensions
+```{python}
+# | output-location: fragment
+print("Number of columns: " + str(len(df.columns)))
+print("Number of rows: " + str(len(df.columns)))
+```
+
+  
+
+### Tab 2
+
+Let us take a look into the different features which are available in the dataset.
+
+Column names:
+
+```{python}
+# | echo: true
+for n in range(len(df.columns)):
+    print(df.columns[n])
+```
+
+### Tab 3
+
+What are the values like which are saved in the dataframe?
+
+```{python}
+# | echo: true
+print(df.head(3))
+```
+
+- Some NaN values in InfoArea
+- Repeating information in Infoprovider, Merkmalname and created at
+- information in system time and user time
+
+### Tab 4
+
+```{python}
+# | echo: true
+print(df.describe())
+```
+
+:::
+
+
+# Preprocessing
+
+## Data preparation
+
+::: {.panel-tabset}
+
+### Tab 1
+
+We will drop the usertime for further analysis. The users are international and we want to have a single frame of reference for our analysis.
+
+```{python}
+#df.drop(labels="Cal.day (Usertime)")
+```
+
+
+### Tab 1
+
+```{python}
+print("Before drop there were " + str(len(df)) + " lines in the dataframe")
+```
+
+```{python}
+# | echo: true
+# comment
+df.dropna()
+```
+
+```{python}
+print("After drop there were " + str(len(df)) + " lines in the dataframe")
+```
+
+
+### Tab 2
+
+```{python}
+# | echo: true
+# df.InfoProvider.replace(inplace=True, to_replace="S08/", value="")
+# df.InfoArea.replace(inplace=True, to_replace="S08/", value="")
+# df.Merkmalname.replace(inplace=True, to_replace="S08/", value="")
+print(df.head())
+```
+
+:::
+
+
+# Analysis
+
+Analysis of the business questions.
+
+## Header 3
+
+```{python}
+# | echo: true
+# | output-location: column
+# | label: fig-polar
+# | fig-cap: "A line plot on a polar axis"
+
+r = np.arange(0, 2, 0.01)
+theta = 2 * np.pi * r
+fig, ax = plt.subplots(
+    subplot_kw={'projection':
+                'polar'})
+ax.plot(theta, r)
+ax.set_rticks([0.5, 1, 1.5, 2])
+ax.grid(True)
+plt.show()
+```
+
+# End
+
+## References
+
+Need to add a bibtex file for citations.
+
+## Backup {visibility="uncounted"}

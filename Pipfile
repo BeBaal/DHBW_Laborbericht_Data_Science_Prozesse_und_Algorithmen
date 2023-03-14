@@ -1,0 +1,22 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+quarto = "*"
+jupyter = "*"
+matplotlib = "*"
+plotly = "*"
+nbformat = "*"
+jupyterlab = "*"
+pandas = "*"
+seaborn = "*"
+openpyxl = "*"
+scikit-learn = "*"
+ipykernel = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "*"
