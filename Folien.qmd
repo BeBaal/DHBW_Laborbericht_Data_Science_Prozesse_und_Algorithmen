@@ -254,6 +254,11 @@ x = torch.arange(12).view(3, 4)
 ## Dynamic Computation Graph and Backpropagation
 ::: {.panel-tabset}
 ### Tab 1
+Gradient capability = Tensor speichert und berechnet Gradienten, die für Backpropagation benötigt werden.<br><br>
+Backpropagation = Parameter werden angepasst, um Loss-Funktion zu minimieren.
+By default ist requires_grad in PyTorch false => wenn auf True gesetzt, werden Gradienten der Loss-Funktion automatisch berechnet<br>
+
+### Tab 2
 In den Standardeinstellungen erfordern Tensoren keine Gradienten.
 
 ```{python}
@@ -271,7 +276,10 @@ x.requires_grad_(True)
 print(x.requires_grad)
 ```
 
-### Tab 2
+### Tab 3
+Erstellen eines Tensors mit drei Elementen, Datentyp float und Gradientenfähigkeit (gradient capability). <br>
+
+
 ```{python}
 # | echo: true
 # | output-location: column
@@ -280,7 +288,9 @@ dtype=torch.float32,
 requires_grad=True) # Only float tensors can have gradients
 print("X", x)
 ```
-### Tab 3
+### Tab 4
+$$y = \frac{1}{|x|}\sum_i \left[(x_i + 2)^2 + 3\right]$$
+<br>
 ```{python}
 # | echo: true
 a = x + 2
@@ -289,12 +299,14 @@ c = b + 3
 y = c.mean()
 print("Y", y)
 ```
-### Tab 4
+### Tab 5
+Die backward()-Funktion wird benutzt um die Gradienten des Tensors y zu berechnen.
 ```{python}
 # | echo: true
 y.backward()
 ```
-### Tab 5
+### Tab 6
+Unser Gradient sieht wie folgt aus.
 ```{python}
 # | echo: true
 print(x.grad)
@@ -312,6 +324,7 @@ Um festzustellen, ob ein GPU nutzbar ist, kann man folgenden Code ausführen.
 gpu_avail = torch.cuda.is_available()
 print(f"GPU availability: {gpu_avail}")
 ```
+CUDA (Compute Unified  Device Architecture) ist Schnittstelle von NVIDIA mit der Programmteile durch GPU abgearbeitet werden können, was Parallel Computing ermöglicht. <br>
 Es ist leider auf unserer Hardware keine GPU vorhanden.
 
 ### Tab 2
@@ -335,7 +348,8 @@ print("X", x)
 ##  GPU vs. CPU
 ::: {.panel-tabset}
 ### Tab 1
-Ein kurzer Vergleich der Stärken von CPU und GPUs.
+Ein kurzer Vergleich der Stärken von CPU und GPUs. <br>
+
 ![Tabelle: CPU vs. GPU. Quelle: Caulfield 2009](/Bilder/comparison_CPU_GPU.png)
 
 ### Tab 2
@@ -395,11 +409,14 @@ Unser Anwendungsbeispiel <br>
 
 
 ### Tab 2
-| Right | Left | Default | Center |
-|------:|:-----|---------|:------:|
-|   12  |  12  |    12   |    12  |
-|  123  |  123 |   123   |   123  |
-|    1  |    1 |     1   |     1  |
+XOR Wahrheitstafel <br>
+
+| X_1   | X_2  | Output  |
+|-------|------|---------|
+|   1   |  1   |    0    |
+|  1    |  0   |     1   |
+|    0  |    1 |     1   |
+|    0  |    0 |     0   |
 
 
 ### Tab 3
@@ -552,12 +569,20 @@ data_loader = data.DataLoader(dataset,
 # Optimierung
 
 ## Erstellung eines Loss Models.
+Loss-Funktion berechnet Differenz zwischen Vorhersagen des Netzwerks und „echten“ Labels. In PyTorch sehr einfach mit vordefinierten Loss-Funktionen möglich. <br>
+Hier binäres Klassifikationsproblem, daher Benutzung von Binary Cross Entropy (BCE)<br>
+
 ```{python}
 # | echo: true
 loss_module = nn.BCEWithLogitsLoss()
 ```
 
 ## Erstellen eines Gradienten Verfahrens
+Parameter sollen so angepasst werden, dass der Loss minimiert wird. <br>
+In PyTorch sind im torch.optim-Package viele Optimizer vordefiniert. 
+Einfachster Optimizer ist Stochastic Gradient Descent (SGD).
+Learning Rate (lr) wird auf 0.1 gesetzt. 
+
 ```{python}
 # | echo: true
 # Input to the optimizer are the parameters of the model: model.parameters()
