@@ -41,17 +41,28 @@ sns.set()
 
 <br>
 
+:::: {.columns}
+
+::: {.column width="50%"}
+:::
+
+::: {.column width="50%"}
+
 ![Abbildung: PyTorch Logo. Quelle: PyTorch 2023](/Bilder/PyTorch_Logo.png){width=4in}
+:::
+
+
+::::
 
 ## Was ist PyTorch?
-PyTorch: <br><br>
+<br>
 - Open-Source Machine Learning Library zur Erstellung von ANN<br>
 - Entwickelt von Facebooks AI-Team <br>
 - Ermöglicht Erstellung, Fitting und Evaluation von komplexen NN<br>
 - Praktische Tools wie dynamische Computation Graphs, optimiert für effiziente GPU-Berechnung (Parallel Processing)<br>
 - Alternative Frameworks wären z.B. TensorFlow (Google) oder JAX<br>
 - Große Entwickler-Community<br>
-- Man kann Gradient/Ableitung automatisch erhalten kann<br>
+- Man kann Gradient/Ableitung automatisch erhalten<br>
 
 
 
@@ -406,7 +417,7 @@ class MyModule(nn.Module):
         pass
 ```
 
-### Tab 3
+### Tab 4
 Eine Beispielimpelmentation könnte also wie folgt aussehen.
 ```{python}
 # | echo: true
@@ -445,10 +456,6 @@ model = SimpleClassifier(num_inputs=2, num_hidden=4, num_outputs=1)
 ## Generierung von Datensätzen in PyTorch
 ::: {.panel-tabset}
 ### Tab 1
-In PyTorch lassen sich eigene Datensätze über Klassen generieren. Ein Beispiel Use Case könnte zum Beispiel so lauten.
-
-
-### Tab 2
 Eine Beispielimplementation in PyTorch könnte zum Beispiel so aussehen.
 ```{python}
 # | echo: true
@@ -614,18 +621,22 @@ def train_model(model, optimizer, data_loader, loss_module, num_epochs=100):
 Training des Modells
 ```{python}
 # | echo: true
-train_model(model, optimizer, train_data_loader, loss_module)
+train_model(model,
+            optimizer,
+            train_data_loader,
+            loss_module)
 ```
 Auf den Trainingsdaten erreichen wir eine Accurracy von 100%.
 
 ### tab 5
-Danach können wir das Modell speichern.
+So sieht unser Modell nach dem Training aus.
 ```{python}
-# | echo: false
+# | echo: true
 state_dict = model.state_dict()
 print(state_dict)
 ```
 <br>
+Danach können wir das Modell speichern.
 ```{python}
 # | echo: true
 torch.save(state_dict, "our_model.tar")
@@ -813,9 +824,15 @@ def train_model_with_logger(model, optimizer, data_loader, loss_module, val_data
 ### Tab 3
 ```{python}
 # | echo: true
-model = SimpleClassifier(num_inputs=2, num_hidden=4, num_outputs=1).to(device)
+model = SimpleClassifier(num_inputs=2,
+                        num_hidden=4,
+                        num_outputs=1).to(device)
 optimizer = torch.optim.SGD(model.parameters(), lr=0.1)
-train_model_with_logger(model, optimizer, train_data_loader, loss_module, val_dataset=dataset)
+train_model_with_logger(model,
+                        optimizer,
+                        train_data_loader,
+                        loss_module,
+                        val_dataset=dataset)
 ```
 
 ### Tab 4
@@ -835,10 +852,8 @@ Speaker notes go here.
 
 ## References
 
-Unsere Implementation baut auf dem Turtorial von Phillip Lippe auf. Siehe 
+Unsere Implementation baut auf dem Turtorial von Phillip Lippe auf. Siehe:
 <br>
-![Status](https://img.shields.io/static/v1.svg?label=Status&message=Finished&color=green)
-
 **Filled notebook:** 
 [![View filled on Github](https://img.shields.io/static/v1.svg?logo=github&label=Repo&message=View%20On%20Github&color=lightgrey)](https://github.com/phlippe/uvadlc_notebooks/blob/master/docs/tutorial_notebooks/tutorial2/Introduction_to_PyTorch.ipynb)
 [![Open filled In Collab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/phlippe/uvadlc_notebooks/blob/master/docs/tutorial_notebooks/tutorial2/Introduction_to_PyTorch.ipynb)   
